@@ -17,15 +17,23 @@ if (savedData) {
 }
 
 function askName(){
-    storyText.textContent = "Before we begin, can you remember your name?";
+    storyText.textContent = "";
     choicesDiv.innerHTML = "";
+
+    const nameDiv = document.createElement("div");
+    nameDiv.id = "namePrompt";
+    nameDiv.style.display = "flex";
+    nameDiv.style.flexDirection = "column";
+    nameDiv.style.alignItems = "center";
+
+    const label = document.createElement("p");
+    label.textContent = "Before we begin, can you remember your name?"
+    label.style.marginBottom = "1em";
+
 
     const input = document.createElement("input");
     input.type = "text";
     input.placeholder = "Enter your name...";
-    input.style.marginBottom = "1em";
-    input.style.padding = "0.5em";
-    choicesDiv.appendChild(input);
 
 
     const button = document.createElement("button");
@@ -37,7 +45,10 @@ function askName(){
         saveGame();
         renderScene();
     };
-    choicesDiv.appendChild(button)
+    nameDiv.appendChild(label);
+    nameDiv.appendChild(input)
+    nameDiv.appendChild(button)
+    choicesDiv.appendChild(nameDiv)
 }
 
 const scenes = {
@@ -53,11 +64,32 @@ const scenes = {
 
 function renderScene() {
     const scene = scenes[currentScene];
-    const text = typeof scene.text === "function" ? scene.text() : scene.text.replaceAll(getName, playerName);
+    const rawText = typeof scene.text === "function" ? scene.text() : scene.text.replaceAll(getName, playerName);
     storyText.textContent = scene.text;
 
+
+    storyText.classList.add("typing");
+    storyText.textContent
     choicesDiv.innerHTML = "";
 
+    let i = 0;
+    const speed = 20;
+
+    function typeWrtier() {
+        if (i < rawText.length) {
+            storyText.textContent += rawText.charAt(i)
+            i++;
+            setTimeout(typeWrtier, speed);
+        } else {
+            storyText.classList.remove("typing");
+            renderChoices(scene);
+        }
+    }
+
+    typeWrtier();
+}
+
+function renderChoices(scene) {
     if (!scene.choices || scene.choices.length === 0) {
         const restartBtn = document.createElement("button");
         restartBtn.textContent = "Restart";

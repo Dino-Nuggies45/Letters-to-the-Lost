@@ -80,3 +80,41 @@ button {
 .button:hover {
     background: #9f7cc2;
 }
+
+#namePrompt input {
+    padding: 0.8em 1em;
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: none;
+    width: 250px;
+    text-align: center;
+    margin-bottom: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#namePrompt button {
+    padding: 0.7em 1.5em;
+    font-size: 1em;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffffff;
+    color: #222;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2 ease;
+}
+
+#namePrompt button:hover {
+    background-color: #eee;
+}
+
+#storyText.typing {
+    border-right: 2px solid white;
+    animation: blinkCursor 1s step-start infinite;
+    min-height: 120px;
+    white-space: pre-wrap;
+}
+
+@keyframes blinkCursor {
+    50% { border-color: transparent; }
+}
