@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -5,28 +6,63 @@ body {
   color: white;
 }
 
-.desktop-title {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 2em;
+.hidden {
+  display: none;
 }
 
-.app-icons {
+
+.desktop {
   display: flex;
-  justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 3rem;
 }
 
-.app-icon {
-  padding: 1rem 2rem;
-  background: #5865f2;
-  color: white;
-  border: none;
-  font-size: 1.2em;
-  border-radius: 10px;
+.desktop-icon {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
+  user-select: none;
+  position: relative;
 }
+
+.icon-img {
+  font-size: 3rem;
+  background: #2c2f33;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.icon-img.notification::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.icon-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 
 .app-window {
   position: absolute;
@@ -51,9 +87,6 @@ body {
   font-weight: bold;
 }
 
-.hidden {
-  display: none;
-}
 
 .dm-container {
   padding: 1rem;
@@ -81,6 +114,16 @@ body {
   background: #4e5058;
   align-self: flex-start;
 }
+
+.typing {
+  border-right: 2px solid white;
+  animation: blinkCursor 1s step-start infinite;
+}
+
+@keyframes blinkCursor {
+  50% { border-color: transparent; }
+}
+
 
 .input-section {
   display: flex;
@@ -111,70 +154,33 @@ body {
   cursor: pointer;
 }
 
-.typing {
-  border-right: 2px solid white;
-  animation: blinkCursor 1s step-start infinite;
-}
 
-@keyframes blinkCursor {
-  50% { border-color: transparent; }
-}
-
-.desktop {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-top: 3rem;
-}
-
-.desktop-icon {
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.icon-img {
-  font-size: 3rem;
-  background: #2c2f33;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.icon-label {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  font-family: 'Playfair Display', serif;
 }
 
 .overlay-content {
   text-align: center;
-  color: white;
 }
 
 #dayText {
-  font-family: 'Playfair Display', serif;
   font-size: 3.5rem;
   margin-bottom: 2rem;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  font-family: 'Playfair Display', serif;
 }
 
+#continueBtn,
 .overlay-content button {
   padding: 0.7rem 2.5rem;
   font-size: 1.2rem;
@@ -189,26 +195,3 @@ body {
 .overlay-content button:hover {
   transform: scale(1.05);
 }
-
-.hidden {
-  display: none;
-}
-
-.icon-img.notification::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 12px;
-    height: 12px;
-    background-color: red;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
-    animation: pulse 1s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-  }
