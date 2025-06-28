@@ -53,7 +53,7 @@ function askName(){
 
 const scenes = {
     intro: {
-     text: "Dear " + getName + ",\nI never thought you'd write back. Why now?",
+     text: "Dear {{name}} ,\nI never thought you'd write back. Why now?",
     choices: [
       { text: "I miss you. I need answers.", next: "needAnswers", stat: "obsession" },
       { text: "I just want closure.", next: "closure", stat: "regret" }
@@ -64,8 +64,9 @@ const scenes = {
 
 function renderScene() {
     const scene = scenes[currentScene];
-    const rawText = typeof scene.text === "function" ? scene.text() : scene.text.replaceAll(getName, playerName);
-    storyText.textContent = scene.text;
+   const rawText = typeof scene.text === "function"
+    ? scene.text()
+    : scene.text.replaceAll("{{name}}", playerName);
 
 
     storyText.classList.add("typing");
@@ -75,18 +76,18 @@ function renderScene() {
     let i = 0;
     const speed = 20;
 
-    function typeWrtier() {
+    function typeWriter() {
         if (i < rawText.length) {
             storyText.textContent += rawText.charAt(i)
             i++;
-            setTimeout(typeWrtier, speed);
+            setTimeout(typeWriter, speed);
         } else {
             storyText.classList.remove("typing");
             renderChoices(scene);
         }
     }
 
-    typeWrtier();
+    typeWriter();
 }
 
 function renderChoices(scene) {
@@ -103,8 +104,8 @@ function renderChoices(scene) {
         return;
     }
 
-    scenes.choices.forEach(choice => {
-        const btn = document.getElementById("button");
+    scene.choices.forEach(choice => {
+        const btn = document.createElement("button");
         btn.textContent = choice.text;
         btn.onclick = () => {
             if (choice.stat) stats[choice.stat]++;
@@ -118,4 +119,12 @@ if (!playerName) {
     askName();
 } else {
 renderScene();
+}
+
+function saveGame() {
+    localStorage.setItem("lettersSave", JSON.stringify({
+        currentScene,
+        stats,
+        playerName
+    }));
 }
