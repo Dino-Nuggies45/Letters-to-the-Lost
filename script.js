@@ -176,3 +176,4 @@ if (!playerName) {
 } else {
   renderScene();
 }
+
