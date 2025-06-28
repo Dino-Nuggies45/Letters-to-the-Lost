@@ -151,3 +151,75 @@ function saveGame() {
         playerName
     }));
 }
+
+
+function openApp(app) {
+  document.getElementById("desktop").classList.add("hidden");
+  document.getElementById(`${app}App`).classList.remove("hidden");
+
+  if (app === "letters" && !playerName) {
+    showNamePrompt();
+  } else if (app === "letters") {
+    renderScene();
+  } else if (app === "dice") {
+    startDiceGame();
+  }
+}
+
+function closeApp(app) {
+  document.getElementById(`${app}App`).classList.add("hidden");
+  document.getElementById("desktop").classList.remove("hidden");
+
+  if (app === "letters") {
+    document.getElementById("messageHistory").innerHTML = "";
+  }
+  if (app === "dice") {
+    document.getElementById("diceGameContainer").innerHTML = "";
+  }
+}
+
+let gold = 10;
+let losses = 0;
+
+function startDiceGame() {
+  const diceContainer = document.getElementById("diceGameContainer");
+  diceContainer.innerHTML = `
+    <p>You have <strong>${gold} gold</strong>. First to 3 losses gets kicked out.</p>
+    <button onclick="playDiceRound()">🎲 Roll Dice</button>
+    <div id="diceResults" style="margin-top:1rem;"></div>
+  `;
+}
+
+function playDiceRound() {
+  const playerRoll = Math.ceil(Math.random() * 6);
+  const npcRoll = Math.ceil(Math.random() * 6);
+  const resultBox = document.getElementById("diceResults");
+
+  let resultText = `<p>You rolled a <strong>${playerRoll}</strong>.<br>Bartender rolled a <strong>${npcRoll}</strong>.</p>`;
+
+  if (playerRoll > npcRoll) {
+    gold += 2;
+    resultText += `<p style="color:lime;">You win 2 gold!</p>`;
+  } else if (playerRoll < npcRoll) {
+    gold -= 3;
+    losses += 1;
+    resultText += `<p style="color:tomato;">You lose 3 gold. (${losses}/3 losses)</p>`;
+  } else {
+    resultText += `<p style="color:gray;">A tie. Nothing happens.</p>`;
+  }
+
+  if (losses >= 3 || gold <= 0) {
+    resultText += `<p style="color:red; font-weight:bold;">You're thrown out of the tavern!</p>`;
+    resultText += `<button onclick="resetDiceGame()">🔁 Play Again</button>`;
+    document.getElementById("diceGameContainer").innerHTML = resultText;
+  } else {
+    document.querySelector("#diceGameContainer p").innerHTML = `You have <strong>${gold} gold</strong>. First to 3 losses gets kicked out.`;
+    resultBox.innerHTML = resultText;
+  }
+}
+
+function resetDiceGame() {
+  gold = 10;
+  losses = 0;
+  startDiceGame();
+}

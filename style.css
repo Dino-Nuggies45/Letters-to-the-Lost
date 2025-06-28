@@ -119,3 +119,34 @@ body {
 @keyframes blinkCursor {
   50% { border-color: transparent; }
 }
+
+.desktop {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 3rem;
+}
+
+.desktop-icon {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.icon-img {
+  font-size: 3rem;
+  background: #2c2f33;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.icon-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}

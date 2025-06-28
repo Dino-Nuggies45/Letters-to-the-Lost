@@ -6,11 +6,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="desktop">
-    <h1 class="desktop-title">📁 Your Desktop</h1>
-    <div class="app-icons">
-      <button class="app-icon" onclick="openApp('letters')">💌 Letters to the Lost</button>
-      <button class="app-icon" onclick="alert('Game 2 coming soon!')">🕹️ Second Game</button>
+  <div id="desktop" class="desktop">
+    <div class="desktop-icon" onclick="openApp('letters')">
+      <div class="icon-img">💌</div>
+      <div class="icon-label">Letters to the Lost</div>
+    </div>
+    <div class="desktop-icon" onclick="openApp('dice')">
+      <div class="icon-img">🎲</div>
+      <div class="icon-label">Tavern Dice</div>
     </div>
   </div>
 
@@ -20,9 +23,17 @@
       <button onclick="closeApp('letters')">❌</button>
     </div>
     <div class="dm-container">
-      <div id="messageHistory" class="dm-history"></div>
+      <div id="messageHistory" class="history"></div>
       <div id="inputSection" class="input-section"></div>
     </div>
+  </div>
+
+   <div id="diceApp" class="app-window hidden">
+    <div class="app-header">
+      <span>🎲 Tavern Dice</span>
+      <button onclick="closeApp('dice')">❌</button>
+    </div>
+    <div class="dm-container" id="diceGameContainer"></div>
   </div>
 
   <script src="script.js"></script>
