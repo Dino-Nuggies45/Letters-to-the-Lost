@@ -7,7 +7,7 @@
 </head>
 <body>
   <div id="desktop" class="desktop">
-    <div class="desktop-icon" onclick="openApp('letters')">
+    <div class="desktop-icon" id="lettersIcon" onclick="openApp('letters')">
       <div class="icon-img">💌</div>
       <div class="icon-label">Letters to the Lost</div>
     </div>
@@ -16,7 +16,12 @@
       <div class="icon-label">Tavern Dice</div>
     </div>
   </div>
-
+  <div id="dayOverlay" class="overlay hidden">
+    <div class="overlay-content">
+      <p id="dayText">Day 2</p>
+      <button onclick="continueToNextDay()">Continue</button>
+    </div>
+  </div>
   <div id="lettersApp" class="app-window hidden">
     <div class="app-header">
       <span>💌 Letters to the Lost</span>
