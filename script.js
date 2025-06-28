@@ -2,15 +2,10 @@ let currentScene = "intro";
 let stats = { hope: 0, regret: 0, obsession: 0 };
 let playerName = "";
 let currentDay = 1;
-let transitioning = false;
-let dayOverlayShown = false;
 
 const history = document.getElementById("messageHistory");
 const inputSection = document.getElementById("inputSection");
-const dayOverlay = document.getElementById("dayOverlay");
-const dayText = document.getElementById("dayText");
 
-// --- SCENES GO HERE ---
 const scenes = {
   intro: {
     text: "Welcome to the story. Your first message here...",
@@ -18,19 +13,19 @@ const scenes = {
   },
   scene_1: {
     text: "This is scene 1 text. What will you do?",
-    choices: [{ text: "Next day", next: "scene_2", stat: "regret" }]
+    choices: [{ text: "Next", next: "scene_2", stat: "regret" }]
   },
   scene_2: {
     text: "This is scene 2 text. Keep going.",
     choices: [{ text: "Continue", next: "scene_3", stat: "obsession" }]
   },
   scene_3: {
-    text: "You've made it to day 3. The mystery deepens...",
+    text: "You've made it to scene 3. The mystery deepens...",
     choices: []
   }
 };
 
-// --- LOAD SAVE ---
+
 const savedData = JSON.parse(localStorage.getItem("lettersSave"));
 if (savedData) {
   currentScene = savedData.currentScene || "intro";
@@ -39,63 +34,6 @@ if (savedData) {
   currentDay = savedData.currentDay || 1;
 }
 
-// --- EVENT: Overlay Continue Button ---
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("continueBtn");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      dayOverlay.style.display = "none";  // hide overlay directly
-      dayOverlayShown = false;
-      transitioning = false;
-      renderScene();
-    });
-  } else {
-    console.error("⚠️ continueBtn not found in DOM");
-  }
-
-  if (!playerName) {
-    showNamePrompt();
-  } else if (currentDay === 1) {
-    renderScene();
-  } else {
-    showDayOverlay();
-  }
-});
-
-// --- APP OPEN ---
-function openApp(app) {
-  document.getElementById("desktop").classList.add("hidden");
-
-  if (app === "letters") {
-    document.getElementById("lettersApp").classList.remove("hidden");
-    if (!playerName) {
-      showNamePrompt();
-    } else if (currentDay === 1) {
-      renderScene();
-    } else {
-      showDayOverlay();
-    }
-  }
-
-  if (app === "dice") {
-    document.getElementById("diceApp").classList.remove("hidden");
-    startDiceGame?.();
-  }
-}
-
-// --- APP CLOSE ---
-function closeApp(app) {
-  if (app === "letters") {
-    document.getElementById("lettersApp").classList.add("hidden");
-    history.innerHTML = "";
-  }
-  if (app === "dice") {
-    document.getElementById("diceApp").classList.add("hidden");
-  }
-  document.getElementById("desktop").classList.remove("hidden");
-}
-
-// --- SAVE GAME ---
 function saveGame() {
   localStorage.setItem("lettersSave", JSON.stringify({
     currentScene,
@@ -105,7 +43,7 @@ function saveGame() {
   }));
 }
 
-// --- NAME PROMPT ---
+
 function showNamePrompt() {
   history.innerHTML = "";
   inputSection.innerHTML = "";
@@ -120,43 +58,15 @@ function showNamePrompt() {
     if (!val) return alert("Enter a name!");
     playerName = val;
     saveGame();
-    showDayOverlay();
+    renderScene();
   };
 
   inputSection.appendChild(input);
   inputSection.appendChild(button);
 }
 
-// --- SHOW DAY OVERLAY ---
 
-function showDayOverlay() {
-  dayText.innerText = `Day ${currentDay}`;
-  dayOverlay.classList.remove("hidden");  // Show overlay
-  dayOverlayShown = true;
-  transitioning = true;
-}
-
-// Add event listener after DOM loaded
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("continueBtn");
-  btn.addEventListener("click", () => {
-    dayOverlay.classList.add("hidden");   // Hide overlay by adding .hidden class
-    dayOverlayShown = false;
-    transitioning = false;
-    renderScene();
-  });
-// --- SCENE RENDER ---
 function renderScene() {
-  if (transitioning) return;
-
-  console.log("renderScene called", currentScene, currentDay);
-
-  if (currentDay > 1 && !dayOverlayShown) {
-    showDayOverlay();
-    return;
-  }
-
-  dayOverlayShown = false;
   history.innerHTML = "";
 
   const scene = scenes[currentScene];
@@ -170,6 +80,7 @@ function renderScene() {
   ghostMessage.className = "dm-message ghost typing";
   ghostMessage.textContent = "";
   history.appendChild(ghostMessage);
+
   inputSection.innerHTML = "";
 
   const fullText = typeof scene.text === "function" ? scene.text() : scene.text;
@@ -191,7 +102,7 @@ function renderScene() {
   saveGame();
 }
 
-// --- SHOW CHOICES ---
+
 function showChoices(choices) {
   inputSection.innerHTML = "";
 
@@ -203,7 +114,7 @@ function showChoices(choices) {
       stats = { hope: 0, regret: 0, obsession: 0 };
       currentDay = 1;
       history.innerHTML = "";
-      showDayOverlay();
+      renderScene();
     };
     inputSection.appendChild(btn);
     return;
@@ -223,19 +134,45 @@ function showChoices(choices) {
       currentScene = choice.next;
       currentDay++;
       saveGame();
-      showDayOverlay();
+      renderScene();
     };
     inputSection.appendChild(btn);
   });
 }
 
-// --- START GAME ---
+function openApp(app) {
+  document.getElementById("desktop").classList.add("hidden");
+
+  if (app === "letters") {
+    document.getElementById("lettersApp").classList.remove("hidden");
+    if (!playerName) {
+      showNamePrompt();
+    } else {
+      renderScene();
+    }
+  }
+
+  if (app === "dice") {
+    document.getElementById("diceApp").classList.remove("hidden");
+    startDiceGame?.();
+  }
+}
+
+
+function closeApp(app) {
+  if (app === "letters") {
+    document.getElementById("lettersApp").classList.add("hidden");
+    history.innerHTML = "";
+  }
+  if (app === "dice") {
+    document.getElementById("diceApp").classList.add("hidden");
+  }
+  document.getElementById("desktop").classList.remove("hidden");
+}
+
+
 if (!playerName) {
   showNamePrompt();
 } else {
-  if (currentDay === 1) {
-    renderScene();
-  } else {
-    showDayOverlay();
-  }
+  renderScene();
 }
