@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Letters to the Lost</title>
+  <meta charset="UTF-8" />
+  <title>Desktop</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="app-container">
-        <h1>Letters to the Lost</h1>
-        <div id="storyText" class="history"></div>
-        <div id="choices" class="input-section"></div>
+  <div id="desktop">
+    <h1 class="desktop-title">📁 Your Desktop</h1>
+    <div class="app-icons">
+      <button class="app-icon" onclick="openApp('letters')">💌 Letters to the Lost</button>
+      <button class="app-icon" onclick="alert('Game 2 coming soon!')">🕹️ Second Game</button>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="lettersApp" class="app-window hidden">
+    <div class="app-header">
+      <span>💌 Letters to the Lost</span>
+      <button onclick="closeApp('letters')">❌</button>
+    </div>
+    <div class="dm-container">
+      <div id="messageHistory" class="dm-history"></div>
+      <div id="inputSection" class="input-section"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

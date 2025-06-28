@@ -1,119 +1,142 @@
-const storyText = document.getElementById("storyText")
-const choicesDiv = document.getElementById("choices");
-
 let currentScene = "intro";
-let stats = {
-    hope: 0,
-    regret: 0,
-    obsession: 0,
-};
+let stats = { hope: 0, regret: 0, obsession: 0 };
 let playerName = "";
+
+const history = document.getElementById("messageHistory");
+const inputSection = document.getElementById("inputSection");
 
 const savedData = JSON.parse(localStorage.getItem("lettersSave"));
 if (savedData) {
-    currentScene = savedData.currentScene;
-    stats = savedData.stats;
-    playerName = savedData.playerName;
+  currentScene = savedData.currentScene;
+  stats = savedData.stats;
+  playerName = savedData.playerName;
 }
 
-function askName(){
-    storyText.textContent = "";
-    choicesDiv.innerHTML = "";
+function openApp(app) {
+  document.getElementById("desktop").classList.add("hidden");
+  document.getElementById("lettersApp").classList.remove("hidden");
 
-    const nameDiv = document.createElement("div");
-    nameDiv.id = "namePrompt";
-    nameDiv.style.display = "flex";
-    nameDiv.style.flexDirection = "column";
-    nameDiv.style.alignItems = "center";
+  if (!playerName) {
+    showNamePrompt();
+  } else {
+    renderScene();
+  }
+}
 
-    const label = document.createElement("p");
-    label.textContent = "Before we begin, can you remember your name?"
-    label.style.marginBottom = "1em";
+function closeApp(app) {
+  document.getElementById("lettersApp").classList.add("hidden");
+  document.getElementById("desktop").classList.remove("hidden");
+  history.innerHTML = "";
+}
 
-
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Enter your name...";
-
-
-    const button = document.createElement("button");
-    button.textContent = "Start";
-    button.onclick = () => {
-        const name = input.value.trim();
-        if (!name) return alert("Please enter a name.");
-        playerName = name;
-        saveGame();
-        renderScene();
-    };
-    nameDiv.appendChild(label);
-    nameDiv.appendChild(input)
-    nameDiv.appendChild(button)
-    choicesDiv.appendChild(nameDiv)
+function saveGame() {
+  localStorage.setItem("lettersSave", JSON.stringify({
+    currentScene,
+    stats,
+    playerName
+  }));
 }
 
 const scenes = {
-    intro: {
-     text: "Dear {{name}} ,\nI never thought you'd write back. Why now?",
+  intro: {
+    text: () => `Dear ${playerName},\nI never thought you'd write back. Why now?`,
     choices: [
       { text: "I miss you. I need answers.", next: "needAnswers", stat: "obsession" },
       { text: "I just want closure.", next: "closure", stat: "regret" }
     ]
   },
-}
+  needAnswers: {
+    text: () => "Answers? To what happened? You never used to ask questions like that.",
+    choices: [
+      { text: "People change. I need to know the truth.", next: "truthReveal", stat: "hope" }
+    ]
+  },
+  closure: {
+    text: () => "Closure doesn't come from a letter, you know that.",
+    choices: [
+      { text: "Maybe not. But this is all I have left.", next: "truthReveal", stat: "hope" }
+    ]
+  },
+  truthReveal: {
+    text: () => "Then brace yourself. Not everything you remember is real...",
+    choices: []
+  }
+};
 
+function showNamePrompt() {
+  inputSection.innerHTML = "";
+  const input = document.createElement("input");
+  input.placeholder = "What's your name?";
+  const button = document.createElement("button");
+  button.textContent = "Begin";
+  button.onclick = () => {
+    const val = input.value.trim();
+    if (!val) return alert("Enter a name!");
+    playerName = val;
+    saveGame();
+    renderScene();
+  };
+  inputSection.appendChild(input);
+  inputSection.appendChild(button);
+}
 
 function renderScene() {
-    const scene = scenes[currentScene];
-   const rawText = typeof scene.text === "function"
-    ? scene.text()
-    : scene.text.replaceAll("{{name}}", playerName);
+  const scene = scenes[currentScene];
+  const ghostMessage = document.createElement("div");
+  ghostMessage.className = "dm-message ghost typing";
+  ghostMessage.textContent = "";
+  history.appendChild(ghostMessage);
+  inputSection.innerHTML = "";
 
+  const fullText = typeof scene.text === "function" ? scene.text() : scene.text;
 
-    storyText.classList.add("typing");
-    storyText.textContent
-    choicesDiv.innerHTML = "";
-
-    let i = 0;
-    const speed = 20;
-
-    function typeWriter() {
-        if (i < rawText.length) {
-            storyText.textContent += rawText.charAt(i)
-            i++;
-            setTimeout(typeWriter, speed);
-        } else {
-            storyText.classList.remove("typing");
-            renderChoices(scene);
-        }
+  let i = 0;
+  const speed = 25;
+  function typeWriter() {
+    if (i < fullText.length) {
+      ghostMessage.textContent += fullText.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    } else {
+      ghostMessage.classList.remove("typing");
+      showChoices(scene.choices);
     }
-
-    typeWriter();
+  }
+  typeWriter();
+  saveGame();
 }
 
-function renderChoices(scene) {
-    if (!scene.choices || scene.choices.length === 0) {
-        const restartBtn = document.createElement("button");
-        restartBtn.textContent = "Restart";
-        restartBtn.onclick = () => {
-            currentScene = "intro";
-            stats ={ hope: 0, regret: 0, obsession: 0};
-            saveGame();
-            renderScene();
-        };
-        choicesDiv.appendChild(restartBtn);
-        return;
-    }
+function showChoices(choices) {
+  inputSection.innerHTML = "";
+  if (!choices || choices.length === 0) {
+    const btn = document.createElement("button");
+    btn.textContent = "Restart";
+    btn.onclick = () => {
+      currentScene = "intro";
+      stats = { hope: 0, regret: 0, obsession: 0 };
+      history.innerHTML = "";
+      renderScene();
+    };
+    inputSection.appendChild(btn);
+    return;
+  }
 
-    scene.choices.forEach(choice => {
-        const btn = document.createElement("button");
-        btn.textContent = choice.text;
-        btn.onclick = () => {
-            if (choice.stat) stats[choice.stat]++;
-            currentScene = choice.next;
-            renderScene();
-        };
-        choicesDiv.appendChild(btn);
-    });
+  choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.textContent = choice.text;
+    btn.onclick = () => {
+      const playerMsg = document.createElement("div");
+      playerMsg.className = "dm-message player";
+      playerMsg.textContent = choice.text;
+      history.appendChild(playerMsg);
+      history.scrollTop = history.scrollHeight;
+
+      if (choice.stat) stats[choice.stat]++;
+      currentScene = choice.next;
+      renderScene();
+    };
+    inputSection.appendChild(btn);
+  });
 }
 if (!playerName) {
     askName();
