@@ -38,7 +38,7 @@ function saveGame() {
 }
 
 const scenes = {
-  intro: {
+   intro: {
     text: () => `Dear ${playerName},\nI never thought you'd write back. Why now?`,
     choices: [
       { text: "I miss you. I need answers.", next: "reclaim_1", stat: "obsession" },
@@ -166,8 +166,145 @@ const scenes = {
       { text: "Bring Liam back at any cost.", next: "ending_5" },
       { text: "Say goodbye forever.", next: "ending_7" },
       { text: "Trap Liam and move on.", next: "ending_8" }
-    ]
+    ],
+    
+    closure_start: { text: () => `You want peace. You write and send a series of heartfelt letters.`, choices: [
+    { text: "Write a final goodbye", next: "closure_1" },
+    { text: "Ask how he died", next: "closure_2" },
+    { text: "Let silence settle", next: "closure_3" },
+    { text: "Talk to others receiving messages", next: "closure_4" }
+  ]},
+  closure_1: { text: () => `You write: 'I hope you're at peace. I'm learning to let go.'\n\nLiam replies: 'I always wanted you to find happiness—even without me.'`, choices: [
+    { text: "Tell him you’re ready to move on", next: "closure_5" },
+    { text: "Say you’re not ready yet", next: "closure_6" }
+  ]},
+  closure_2: { text: () => `You ask about his death.\n\nLiam: 'It wasn't just an accident. There were secrets in the car that night.'`, choices: [
+    { text: "Press him for the truth", next: "closure_7" },
+    { text: "Let it rest", next: "closure_5" }
+  ]},
+  closure_3: { text: () => `You stop messaging. The silence grows louder than words. After a day, he sends: 'Still here.'`, choices: [
+    { text: "Break the silence", next: "closure_6" },
+    { text: "Embrace it", next: "ending_13" }
+  ]},
+  closure_4: { text: () => `You find a message board. Others see their own 'Liams'. You're not alone.\n\nOne user: 'It's like they’re trying to reach us together.'`, choices: [
+    { text: "Ask about a pattern", next: "closure_8" },
+    { text: "Coordinate a meetup", next: "closure_9" }
+  ]},
+  closure_5: { text: () => `You write: 'Thank you. I’m going to live for both of us now.'\n\nThe app closes itself. A weight lifts.`, choices: [
+    { text: "Restart anyway", next: "intro" },
+    { text: "Let it end here", next: "ending_11" }
+  ]},
+  closure_6: { text: () => `Liam replies: 'Then don’t. Just stay here with me a little longer.'`, choices: [
+    { text: "Agree", next: "closure_10" },
+    { text: "Push yourself to let go", next: "closure_5" }
+  ]},
+  closure_7: { text: () => `Liam: 'I wasn’t supposed to be in that car. Someone switched seats. They never found the truth.'`, choices: [
+    { text: "Investigate what really happened", next: "closure_11" },
+    { text: "Try to forgive", next: "closure_5" }
+  ]},
+  closure_8: { text: () => `You discover a strange pattern—all 'Liams' respond at exactly 3:33 AM.`, choices: [
+    { text: "Message him at that time", next: "closure_12" },
+    { text: "Wait to see what happens", next: "closure_13" }
+  ]},
+  closure_9: { text: () => `You meet others in person. Strangely, everyone claims they were best friends with Liam.`, choices: [
+    { text: "Demand answers", next: "closure_14" },
+    { text: "Check if they're lying", next: "closure_15" }
+  ]},
+  closure_10: { text: () => `Days pass. You stay stuck in endless conversations. Nothing new is ever said.`, choices: [
+    { text: "Break the loop", next: "ending_18" },
+    { text: "Accept the loop", next: "ending_20" }
+  ]},
+  closure_11: { text: () => `You uncover a forgotten crash report. It shows you weren’t the passenger—you were the one who died.`, choices: [
+    { text: "Try to wake up", next: "ending_16" },
+    { text: "Help others like you", next: "ending_17" }
+  ]},
+  closure_12: { text: () => `You send a message at 3:33 AM. The response: 'The veil opens. Do you see now?'`, choices: [
+    { text: "Follow the vision", next: "ending_14" },
+    { text: "Shut it off", next: "ending_19" }
+  ]},
+  closure_13: { text: () => `3:33 passes. You hear a knock at the door. But no one’s there.\n\nYour phone buzzes: 'I was close.'`, choices: [
+    { text: "Invite him in", next: "ending_18" },
+    { text: "Lock everything", next: "ending_19" }
+  ]},
+  closure_14: { text: () => `They all recite the same phrase: 'We are fragments.'\n\nYou realize—Liam's soul is scattered across people.`, choices: [
+    { text: "Reunite the fragments", next: "ending_15" },
+    { text: "Refuse to join them", next: "ending_13" }
+  ]},
+  closure_15: { text: () => `One girl smiles: 'None of us are lying. We’re what’s left of him.'`, choices: [
+    { text: "Join them", next: "ending_15" },
+    { text: "Run", next: "ending_19" }
+  ]},
+
   },
+};
+
+scenes["ending_1"] = {
+  text: () => "ENDING 1 — You deleted the app. The silence remains. Was that the real goodbye?",
+  choices: []
+};
+scenes["ending_2"] = {
+  text: () => "ENDING 2 — You believed too easily. The thing wearing Liam's voice now wears your face.",
+  choices: []
+};
+scenes["ending_3"] = {
+  text: () => "ENDING 3 — You stayed with the shadow. It learns to imitate you next.",
+  choices: []
+};
+scenes["ending_4"] = {
+  text: () => "ENDING 4 — A glitch traps you both. Half of Liam. Half of you. Forever echoing.",
+  choices: []
+};
+scenes["ending_5"] = {
+  text: () => "ENDING 5 — Liam returns... but not as he was. He forgets your name every day.",
+  choices: []
+};
+scenes["ending_6"] = {
+  text: () => "ENDING 6 — You returned Liam to the world, but lost your voice in exchange. No one believes you.",
+  choices: []
+};
+scenes["ending_7"] = {
+  text: () => "ENDING 7 — You said goodbye. The app fades. The air grows warmer. You feel light again.",
+  choices: []
+};
+scenes["ending_8"] = {
+  text: () => "ENDING 8 — You trap the copy. But it whispers through machines. Always watching.",
+  choices: []
+};
+scenes["ending_9"] = {
+  text: () => "ENDING 9 — You kept yourself. But Liam haunts mirrors now, silent and staring.",
+  choices: []
+};
+scenes["ending_10"] = {
+  text: () => "ENDING 10 — You gave yourself up. Liam lives again. But you're erased from every photo.",
+  choices: []
+};
+scenes["ending_11"] = {
+  text: () => "ENDING 11 — You let the story end. The app never opens again. Peace is earned.",
+  choices: []
+};
+scenes["ending_12"] = {
+  text: () => "ENDING 12 — You let someone else use the app. They vanish a week later.",
+  choices: []
+};
+scenes["ending_13"] = {
+  text: () => "ENDING 13 — You chose silence. He never returned. But you lived.",
+  choices: []
+};
+scenes["ending_14"] = {
+  text: () => "ENDING 14 — The veil showed the truth: he was never real. Just grief wearing a mask.",
+  choices: []
+};
+scenes["ending_15"] = {
+  text: () => "ENDING 15 — You gathered every fragment. Liam’s smile flickers, then fades. He was whole, but wrong.",
+  choices: []
+};
+scenes["ending_16"] = {
+  text: () => "ENDING 16 — You wake up in a hospital. No phone. No app. But Liam is beside you. Breathing.",
+  choices: []
+};
+scenes["ending_17"] = {
+  text: () => "ENDING 17 — You help others find their truth. The network grows. So does the Watcher.",
+  choices: []
 };
 
 function showNamePrompt() {
