@@ -167,8 +167,10 @@ const scenes = {
       { text: "Say goodbye forever.", next: "ending_7" },
       { text: "Trap Liam and move on.", next: "ending_8" }
     ],
-    
-    closure_start: { text: () => `You want peace. You write and send a series of heartfelt letters.`, choices: [
+
+  },
+
+  closure_start: { text: () => `You want peace. You write and send a series of heartfelt letters.`, choices: [
     { text: "Write a final goodbye", next: "closure_1" },
     { text: "Ask how he died", next: "closure_2" },
     { text: "Let silence settle", next: "closure_3" },
@@ -234,8 +236,6 @@ const scenes = {
     { text: "Join them", next: "ending_15" },
     { text: "Run", next: "ending_19" }
   ]},
-
-  },
 };
 
 scenes["ending_1"] = {
@@ -304,6 +304,58 @@ scenes["ending_16"] = {
 };
 scenes["ending_17"] = {
   text: () => "ENDING 17 — You help others find their truth. The network grows. So does the Watcher.",
+  choices: []
+};
+scenes["ending_18"] = {
+  text: () => "ENDING 18 — You stayed too long. You forgot you were alive.",
+  choices: []
+};
+scenes["ending_19"] = {
+  text: () => "ENDING 19 — You shut every door. The knocking never stops. But it never enters.",
+  choices: []
+};
+scenes["ending_20"] = {
+  text: () => "ENDING 20 — You live in the loop. He replies. You reply. Forever.",
+  choices: []
+};
+scenes["ending_21"] = {
+  text: () => "ENDING 21 — You embraced the dark. Liam smiles through your eyes.",
+  choices: []
+};
+scenes["ending_22"] = {
+  text: () => "ENDING 22 — It pulls you through the screen. Now you answer the next user.",
+  choices: []
+};
+scenes["ending_23"] = {
+  text: () => "ENDING 23 — The mirror takes you. Your name fades from memory.",
+  choices: []
+};
+scenes["ending_24"] = {
+  text: () => "ENDING 24 — You dissolve peacefully. No body. No soul. Just digital dust.",
+  choices: []
+};
+scenes["ending_25"] = {
+  text: () => "ENDING 25 — The static consumes everything. You forget your own voice.",
+  choices: []
+};
+scenes["ending_26"] = {
+  text: () => "ENDING 26 — The mirror cracks. Something escapes.",
+  choices: []
+};
+scenes["ending_27"] = {
+  text: () => "ENDING 27 — You begged. He forgave you. But you never forgave yourself.",
+  choices: []
+};
+scenes["ending_28"] = {
+  text: () => "ENDING 28 — You fight for control. You win… but something inside you watches.",
+  choices: []
+};
+scenes["ending_29"] = {
+  text: () => "ENDING 29 — You reject him. The app deletes itself. He never returns.",
+  choices: []
+};
+scenes["ending_30"] = {
+  text: () => "ENDING 30 — You merge completely. You are now the one who replies to the next sender.",
   choices: []
 };
 
@@ -381,11 +433,6 @@ function showChoices(choices) {
     };
     inputSection.appendChild(btn);
   });
-}
-if (!playerName) {
-    askName();
-} else {
-renderScene();
 }
 
 function saveGame() {
@@ -466,4 +513,10 @@ function resetDiceGame() {
   gold = 10;
   losses = 0;
   startDiceGame();
+}
+
+if (!playerName) {
+  showNamePrompt();
+} else {
+  renderScene();
 }
