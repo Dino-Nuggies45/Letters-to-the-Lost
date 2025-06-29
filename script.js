@@ -900,6 +900,288 @@ Object.assign(scenes, {
       { text: "Continue to Day 15", next: "day15_intro" }
     ]
   },
+   day15_intro: {
+    text: () => `Day 15\n\nYou wake to sunlight. The first time in weeks.\n\nLiam: "If you’re seeing this… it means you still believe in something."`,
+    choices: [
+      { text: "I believe you’re still in there.", next: "day15_faith" },
+      { text: "I believe I can move on.", next: "day15_release" }
+    ]
+  },
+
+  day15_faith: {
+    text: () => `Liam’s name flickers.\n\n> "Then let’s try something new. Tell me about who you are now—not who you were."`,
+    choices: [
+      { text: "I’m trying to be better.", next: "day15_mirror" },
+      { text: "I don’t really know yet.", next: "day15_honest" }
+    ]
+  },
+
+  day15_release: {
+    text: () => `Liam: "Then this might be goodbye."\n\nYou feel tears on your cheeks. But it doesn’t hurt as much today.`,
+    choices: [
+      { text: "Say goodbye.", next: "day15_peace" },
+      { text: "Wait. Just one more message.", next: "day15_mirror" }
+    ]
+  },
+
+  day15_mirror: {
+    text: () => `You turn on your webcam. You look like yourself again.\n\nLiam: "I see you. Not what we were. Just… you."`,
+    choices: [
+      { text: "What do you see?", next: "day15_reflect" },
+      { text: "I think I’m ready now.", next: "day15_finalchoice" }
+    ]
+  },
+
+  day15_honest: {
+    text: () => `Liam: "Then keep going. Don’t stop at the past. It’s not all you are."`,
+    choices: [
+      { text: "Tell him about your day.", next: "day15_normal" },
+      { text: "Ask him what he remembers.", next: "day15_reflect" }
+    ]
+  },
+
+  day15_reflect: {
+    text: () => `Liam: "I remember laughter. Cold air. The sound of your voice singing off-key."\n\nYou laugh through your tears.`,
+    choices: [
+      { text: "I miss those days.", next: "day15_finalchoice" },
+      { text: "Thank you for remembering.", next: "day15_peace" }
+    ]
+  },
+
+  day15_normal: {
+    text: () => `You describe mundane things. What you ate. The wind outside. The music playing.\n\nLiam: "That’s what I always wanted. For you to keep living."`,
+    choices: [
+      { text: "I will.", next: "day15_finalchoice" },
+      { text: "It still hurts.", next: "day15_peace" }
+    ]
+  },
+
+  day15_peace: {
+    text: () => `Liam: "Then let me go."\n\nThe window fades to white.`,
+    choices: [
+      { text: "Let him go.", next: "ending_peaceful" },
+      { text: "Hold on just a little longer.", next: "day15_finalchoice" }
+    ]
+  },
+
+  day15_finalchoice: {
+    text: () => `Liam: "This is the final choice. Who do you want to be after this?"`,
+    choices: [
+      { text: "Someone who forgives themselves.", next: "ending_forgiveness" },
+      { text: "Someone who remembers but moves forward.", next: "ending_recovery" }
+    ]
+  },
+
+  ending_1: {
+    text: () => `ENDING 1 – Acceptance\n\nYou accept the truth. Liam is gone. You were the one who let go.\n\nThe loop breaks.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_2: {
+    text: () => `ENDING 2 – Denial\n\nYou deny everything. The reflection smiles. It wins.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_3: {
+    text: () => `ENDING 3 – Merge\n\nYou merge with your fractured self. You finally remember. It hurts.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_4: {
+    text: () => `ENDING 4 – Disconnect\n\nYou shut off everything. But the messages never stop.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_5: {
+    text: () => `ENDING 5 – The Sea\n\nYou follow Liam into the sea of memory. He forgives you. Maybe.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_6: {
+    text: () => `ENDING 6 – Escape\n\nYou walk away. You never look back. But something follows.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_7: {
+    text: () => `ENDING 7 – Shadow\n\nYou confront the shadow. It was always you. It always will be.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_8: {
+    text: () => `ENDING 8 – Reflection\n\nLiam returns. But he’s not Liam anymore. Neither are you.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_9: {
+    text: () => `ENDING 9 – Rewrite\n\nYou rewrite the past. But the ink never dries.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_10: {
+    text: () => `ENDING 10 – Loop\n\nYou join Liam in the loop. You become his ghost.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_11: {
+    text: () => `ENDING 11 – Forgiveness\n\nYou admit everything. Liam forgives you. You don’t forgive yourself.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_12: {
+    text: () => `ENDING 12 – Betrayal\n\nYou dig deeper. The final file shows: you sent him there on purpose.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_13: {
+    text: () => `ENDING 13 – Hope\n\nYou believe you can save him. The screen flickers... “Try again.”`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_14: {
+    text: () => `ENDING 14 – Possession\n\nYou answer a message from the mirror. You’re not yourself anymore.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_15: {
+    text: () => `ENDING 15 – Erased\n\nYou delete everything: the logs, the app, your name. And yet, it types back.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_16: {
+    text: () => `ENDING 16 – Silent\n\nYou stop replying. Liam doesn’t. Until he does. From your voice.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_17: {
+    text: () => `ENDING 17 – Simulated\n\nThe messages were tests. You were never real. Just another trial.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_18: {
+    text: () => `ENDING 18 – Sacrifice\n\nYou offer your memory in exchange for Liam’s peace. He fades. You remain empty.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_19: {
+    text: () => `ENDING 19 – New Identity\n\nYou embrace the version of yourself that survived. The past is rewritten.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_20: {
+    text: () => `ENDING 20 – Mirror\n\nYou become the one inside the reflection. Waiting for someone else to answer.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_21: {
+    text: () => `ENDING 21 – Isolation\n\nYou disconnect. The silence is peaceful. Until it isn’t.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_22: {
+    text: () => `ENDING 22 – Message Undelivered\n\nYou never sent the last reply. You don’t know who did.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_23: {
+    text: () => `ENDING 23 – Repeater\n\nYou've done this before. The logs show 137 loops. This was just another.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_24: {
+    text: () => `ENDING 24 – Silence Broken\n\nYou hear Liam’s voice… not through the screen, but behind you.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_25: {
+    text: () => `ENDING 25 – Paradox\n\nYou died in the crash. So did he. Yet you both speak.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_26: {
+    text: () => `ENDING 26 – Redemption\n\nYou confess. You accept. And Liam smiles, fading with the sunrise.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_27: {
+    text: () => `ENDING 27 – Rebirth\n\nYou choose to remember. To live again. A new name. A new story.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_28: {
+    text: () => `ENDING 28 – Watcher\n\nThe game ends. But you remain… watching, waiting to guide the next.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_29: {
+    text: () => `ENDING 29 – The Wrong Choice\n\nYou made the wrong move. Everything resets. Liam never answers again.`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  },
+  ending_30: {
+    text: () => `ENDING 30 – Secret Ending: Unity\n\nYou achieved balance in all stats. The loop ends with peace.\n\n“Thank you for remembering me.”`,
+    choices: [
+      { text: "Restart", next: "day1_intro" },
+      { text: "Exit", next: "end_screen" }
+    ]
+  }
   
 });
 
