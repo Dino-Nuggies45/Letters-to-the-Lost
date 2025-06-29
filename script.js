@@ -1358,7 +1358,117 @@ const scenes = {
       { text: "Restart", next: "day1_intro" },
       { text: "Exit", next: "end_screen" }
     ]
+  },
+
+    nlock_goodEnding: {
+      text: `The final reply is different.
+  No static. No glitches. Just Liam’s voice—clear, warm, whole.
+
+  “You found me.”
+
+  The fog around you lifts. Memories fall into place.
+  It was never about fixing the past. It was about facing it.
+  And you did.
+
+  Your guilt no longer claws at you. Liam is still gone… but you can finally breathe.
+
+  You whisper, “Thank you.”
+
+  He replies, “Live well.”
+
+  The screen fades to white.`,
+    choices: []
+    },
+
+  unlock_obsessionEnding: {
+    text: `You kept pushing.
+  Clawing at every message. Begging for meaning. Scraping through echoes.
+
+  Liam responds no longer as Liam, but as something twisted by your need.
+  A voice made of your guilt. A ghost puppeteered by obsession.
+
+  “Is this what you wanted?” it asks.
+
+  You nod.
+
+  The final screen fills with noise.
+  You have become the message.`,
+  choices: []
+  },
+
+  ending_devotion: {
+    text: `You gave everything—your time, your memories, your self.
+  Piece by piece, you rewrote who you were for a ghost that couldn’t love you back.
+
+  Liam never asked for this. But you insisted.
+
+  “I’ll wait for you,” you say.
+
+  There is no reply.
+
+  Only a screen that glows softly, waiting for the next message.
+  And the one after that.
+  And the one after that.`,
+    choices: []
+   },
+
+  ending_amnesia: {
+    text: `The letters pile up, but the memories fade.
+  Your name is a hollow sound. Liam’s messages make no sense.
+
+  You type responses, but don’t know why.
+  You answer out of reflex. Habit.
+
+  At some point, you stop reading them.
+
+  The screen pulses with new messages. You feel nothing.
+
+  You are just...`,
+    choices: []
+  },
+
+  ending_forgiveness: {
+    text: `A quiet peace settles in your chest.
+  You forgive yourself for the past you cannot change.
+
+  Liam’s messages soften.
+  No blame, no anger—only understanding.
+
+  You write back, finally free of the weight.
+
+  “Thank you,” you say.
+
+  The screen brightens with hope.`,
+      choices: []
+  },
+
+  ending_erasure: {
+    text: `One day, the messages stop.
+  You wait. And wait.
+
+  Slowly, the memories fade.
+  You erase Liam from your mind.
+
+  The screen goes dark.
+
+  You have chosen to forget—and with it, the pain.`,
+    choices: []
+    },
+
+    ending_peaceful: {
+      text: `The storm calms.
+  You accept the loss, and find peace within yourself.
+
+  Liam’s voice is a gentle echo, no longer haunting.
+
+  You close the app for the last time,
+  Carrying the memory without pain.
+
+  A soft smile forms.  
+  The end.`,
+  choices: []
   }
+
   
 };
 
@@ -1495,11 +1605,6 @@ function showChoices(choices) {
 });
 }
 
-if (!choices || choices.length === 0) {
-  endingsSeen.add(currentScene);
-  localStorage.setItem("endingsSeen", JSON.stringify([...endingsSeen]));
-}
-
 function openApp(app) {
   document.getElementById("desktop").classList.add("hidden");
 
@@ -1529,6 +1634,32 @@ function closeApp(app) {
   }
   document.getElementById("desktop").classList.remove("hidden");
 }
+
+function resetStory() {
+  if (!confirm("Are you sure you want to reset all progress and start over?")) return;
+
+ 
+  localStorage.removeItem("lettersSave");
+  localStorage.removeItem("endingsSeen");
+
+  
+  currentScene = "intro";
+  stats = { hope: 0, regret: 0, obsession: 0 };
+  playerName = "";
+  currentDay = 1;
+  timeline = [];
+  endingsSeen = new Set();
+
+  
+  history.innerHTML = "";
+  inputSection.innerHTML = "";
+
+
+  showNamePrompt();
+
+  document.getElementById("timelineButton")?.classList.add("hidden");
+}
+
 
 const storedEndings = localStorage.getItem("endingsSeen");
 if (storedEndings) endingsSeen = new Set(JSON.parse(storedEndings));
