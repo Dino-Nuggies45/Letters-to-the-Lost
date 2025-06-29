@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div id="lettersApp" class="app-window hidden">
+  <div id="lettersApp" class="app-window">
     <div class="app-header">
       <span>💌 Letters to the Lost</span>
       <button onclick="closeApp('letters')">❌</button>
@@ -28,7 +28,16 @@
     </div>
   </div>
 
- 
+  <div id="timelineViewer" class="hidden">
+    <h2>Timeline Viewer</h2>
+    <div id="timelineLog" style="max-height: 70vh; overflow-y: auto;"></div>
+    <button onclick="closeTimeline()">Back</button>
+  </div>
+
+
+  <button id="timelineButton" class="hidden" onclick="openTimeline()" style="position: absolute; top: 1rem; right: 1rem; z-index: 999;">
+    📜 View Timeline
+  </button>
 
   <script src="script.js"></script>
 </body>

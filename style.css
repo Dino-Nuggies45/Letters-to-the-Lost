@@ -141,6 +141,24 @@ body {
   border-radius: 10px;
 }
 
+#timelineViewer {
+  background: black;
+  color: white;
+  padding: 1em;
+  border: 2px solid white;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.timeline-entry {
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.timeline-entry:hover {
+  background: #222;
+}
+
 .input-section input {
   width: 100%;
   background-color: #40444b;
