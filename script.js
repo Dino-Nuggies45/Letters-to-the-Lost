@@ -13,9 +13,9 @@ function getDominantStat() {
   return "obsession";
 }
 
-Object.assign(scenes, {
-  day1_intro: {
-    text: () => `Day 1\n\nYou open your laptop. It's still there.\n\nLiam: "I didn’t think you’d actually write back. Why now?"`,
+const scenes = {
+  intro: {
+    text: () => `Day 1\n\nYou open your laptop. It's still there. Your last conversation with them.\n\nLiam: "I didn’t think you’d actually write back. Why now?"`,
     choices: [
       { text: "I miss you. I need to know what happened.", next: "day1_memoryhook", stat: "obsession" },
       { text: "I'm not sure. Something pulled me back.", next: "day1_pull" }
@@ -1328,7 +1328,7 @@ Object.assign(scenes, {
     ]
   }
   
-});
+};
 
 
 
