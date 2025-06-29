@@ -232,63 +232,373 @@ Object.assign(scenes, {
     ]
   },
 
-  day7_intro: {
+    day7_intro: {
     text: "You wake up drenched in sweat. A dream? A memory? Liam’s voice still rings in your ears.\n\n> 'You don’t even remember, do you?'",
     choices: [
-      { text: "Ask what he means", next: "scene_day7_doubt", stat: "regret" },
-      { text: "Ignore it and check your phone", next: "scene_day7_phone", stat: "obsession" }
+      { text: "Ask what he means", next: "day7_doubt", stat: "regret" },
+      { text: "Ignore it and check your phone", next: "day7_phone", stat: "obsession" }
     ]
   },
 
-  scene_day7_doubt: {
+  day7_doubt: {
     text: "Liam replies: 'You were there. The storm. The rocks. You should’ve stopped me.'\n\nBut... you weren’t there. Were you?",
     choices: [
-      { text: "I wasn’t there!", next: "scene_day7_conflict", stat: "hope" },
-      { text: "I should have stopped you...", next: "scene_day7_guilt", stat: "regret" }
+      { text: "I wasn’t there!", next: "day7_conflict", stat: "hope" },
+      { text: "I should have stopped you...", next: "day7_guilt", stat: "regret" }
     ]
   },
 
-  scene_day7_phone: {
+  day7_phone: {
     text: "You check your texts. There's one from yourself... but dated a year ago.\n\n> 'Don’t let him go. Please. It’s not too late.'",
     choices: [
-      { text: "I don't remember writing that", next: "scene_day7_conflict", stat: "regret" },
-      { text: "What did I mean by that?", next: "scene_day7_obsess", stat: "obsession" }
+      { text: "I don't remember writing that", next: "day7_conflict", stat: "regret" },
+      { text: "What did I mean by that?", next: "day7_obsess", stat: "obsession" }
     ]
   },
 
-  scene_day7_conflict: {
+  day7_conflict: {
     text: "Reality blurs. You remember a dock. Rain. Screaming. Liam slipping. Your hand letting go.",
     choices: [
-      { text: "It was an accident", next: "scene_day7_repression", stat: "hope" },
-      { text: "I let him fall", next: "scene_day7_breakdown", stat: "regret" }
+      { text: "It was an accident", next: "day7_repression", stat: "hope" },
+      { text: "I let him fall", next: "day7_breakdown", stat: "regret" }
     ]
   },
 
-  scene_day7_guilt: {
+  day7_guilt: {
     text: "'Exactly,' Liam replies. 'You watched. You always watched.'",
     choices: [
-      { text: "You're lying!", next: "scene_day7_conflict", stat: "obsession" },
-      { text: "I'm sorry...", next: "scene_day7_breakdown", stat: "regret" }
+      { text: "You're lying!", next: "day7_conflict", stat: "obsession" },
+      { text: "I'm sorry...", next: "day7_breakdown", stat: "regret" }
     ]
   },
 
-  scene_day7_obsess: {
+  day7_obsess: {
     text: "You search your old messages. Everything’s deleted. Except one file named: **'mirror_log.txt'**.",
     choices: [
-      { text: "Open it", next: "scene_day7_breakdown", stat: "obsession" },
-      { text: "Delete it", next: "scene_day7_repression", stat: "hope" }
+      { text: "Open it", next: "day7_breakdown", stat: "obsession" },
+      { text: "Delete it", next: "day7_repression", stat: "hope" }
     ]
   },
 
-  scene_day7_repression: {
+  day7_repression: {
     text: "You close the app. You convince yourself it’s not your fault. Not really.\n\nBut the silence stretches for hours.",
-    choices: [{ text: "Go to bed", next: "scene_day8_intro", stat: "regret" }]
+    choices: [{ text: "Go to bed", next: "day8_intro", stat: "regret" }]
   },
 
-  scene_day7_breakdown: {
-    text: "You read your own words:\n\n> _'It was easier to let him go than to admit I was the one pushing.'_\n\nYour hands are shaking.",
-    choices: [{ text: "Go to bed", next: "scene_day8_intro", stat: "obsession" }]
-},
+  day7_breakdown: {
+    text: "You read your own words:\n\n> _'It was easier to let him go than to admit I was the one pushing.'_ \n\nYour hands are shaking.",
+    choices: [{ text: "Go to bed", next: "day8_intro", stat: "obsession" }]
+  },
+
+  day8_intro: {
+    text: "Liam doesn’t reply today.\n\nInstead, your reflection in the screen smiles before you do.",
+    choices: [
+      { text: "Touch the screen", next: "day8_mirror", stat: "obsession" },
+      { text: "Look away quickly", next: "day8_deny", stat: "hope" }
+    ]
+  },
+
+  day8_mirror: {
+    text: "Your reflection mouths something you can't hear. You feel dizzy. You collapse.",
+    choices: [{ text: "Wake up", next: "day8_loop" }]
+  },
+
+  day8_deny: {
+    text: "You refuse to look. But in the corner of your eye, the reflection still moves.\n\nYou get a message: from Liam.\n\n> 'Too late to turn away now.'",
+    choices: [{ text: "Keep reading", next: "day8_loop", stat: "regret" }]
+  },
+
+  day8_loop: {
+    text: "You're back at Day 1.\nThe first message.\nLiam says: 'You came back.'",
+    choices: [
+      { text: "This isn't right", next: "day8_glitch", stat: "obsession" },
+      { text: "Just go along with it", next: "day8_repeat", stat: "hope" }
+    ]
+  },
+
+  day8_glitch: {
+    text: "The interface glitches. You see code. Snippets of your memories rewritten.",
+    choices: [{ text: "Try to break the loop", next: "day9_intro", stat: "hope" }]
+  },
+
+  day8_repeat: {
+    text: "You send the same first message again. Liam replies: 'Will you get it right this time?'",
+    choices: [{ text: "Maybe...", next: "day9_intro", stat: "regret" }]
+  },
+
+  day9_intro: {
+    text: "Liam sends you a photo. It’s the dock again.\nBut there are **two** of you.",
+    choices: [
+      { text: "Who's the second me?", next: "day9_self", stat: "obsession" },
+      { text: "I don't want to see this", next: "day9_avoid", stat: "hope" }
+    ]
+  },
+
+  day9_self: {
+    text: "'You split yourself to survive it,' Liam texts. 'One part watched. One part forgot.'",
+    choices: [
+      { text: "Merge back together", next: "day9_confront", stat: "regret" },
+      { text: "Stay fractured", next: "day9_avoid", stat: "hope" }
+    ]
+  },
+
+  day9_avoid: {
+    text: "You close the app. You delete the texts. But your reflection keeps messaging back.",
+    choices: [
+      { text: "Give in", next: "day9_confront", stat: "obsession" },
+      { text: "Shut it all off", next: "day9_shutdown", stat: "hope" }
+    ]
+  },
+
+  day9_confront: {
+    text: "You remember it all now. The anger. The push. The scream.\n\n> 'It was always you.'",
+    choices: [
+      { text: "I'm sorry.", next: "day10_intro", stat: "regret" },
+      { text: "What now?", next: "day10_intro", stat: "obsession" }
+    ]
+  },
+
+  day9_shutdown: {
+    text: "You power off everything. Sit in the dark. But the silence is louder than ever.\n\nAnd then, your phone buzzes. One last message from Liam.\n\n> 'You can’t run from yourself.'",
+    choices: [{ text: "Open it", next: "day10_confront", stat: "regret" }]
+  },
+
+  day10_confront: {
+    text: "Welcome back — the ghost voice quivers with accusation.",
+    choices: [
+      { text: "What do you want from me?", next: "day10_distort" },
+      { text: "Leave me alone.", next: "day10_flashback" }
+    ]
+  },
+
+  day10_distort: {
+    text: "Your reply box flickers. You try to type but the words distort.",
+    choices: [
+      { text: "Fight it.", next: "day10_denial" },
+      { text: "Let it happen.", next: "day10_merge" }
+    ]
+  },
+
+  day10_flashback: {
+    text: "A rooftop. Wind. His voice. The memory slams back before you can stop it.",
+    choices: [
+      { text: "Call out his name.", next: "day10_denial" }
+    ]
+  },
+
+  day10_denial: {
+    text: "'You did this,' the voice whispers. 'You know that.'",
+    choices: [
+      { text: "No. I don’t accept this.", next: "day10_mockery" },
+      { text: "You're right. I let go.", next: "day10_fall" }
+    ]
+  },
+
+  day10_merge: {
+    text: "The phone screen glitches wildly. Words bleed across the display.",
+    choices: [
+      { text: "Try to read them.", next: "day10_code" }
+    ]
+  },
+
+  day10_mockery: {
+    text: "The voice laughs. 'Still hiding.' Your phone dims.",
+    choices: [
+      { text: "Look closer.", next: "day10_dock" }
+    ]
+  },
+
+  day10_fall: {
+    text: "His name lingers. The sound of wind, sobbing, and the sea...",
+    choices: [
+      { text: "Follow the sound.", next: "day10_dock" }
+    ]
+  },
+
+  day10_code: {
+    text: "Lights flicker. Your hand phases through the device. It pulls you in.",
+    choices: [
+      { text: "Don’t resist.", next: "day10_dock" }
+    ]
+  },
+
+  day10_dock: {
+    text: "You’re on a dock. Fog all around. The sea stretches into oblivion.",
+    choices: [
+      { text: "Accept the truth.", next: "day10_confess" },
+      { text: "Turn back.", next: "day10_refuse" }
+    ]
+  },
+
+  day10_confess: {
+    text: "You look down. Your reflection cries. 'Why didn’t you save him?'",
+    choices: [
+      { text: "Because I froze.", next: "day10_endstep" },
+      { text: "Because I ran.", next: "day10_endstep" }
+    ]
+  },
+
+  day10_refuse: {
+    text: "Silence follows. Even the sea refuses to speak now.",
+    choices: [
+      { text: "Keep walking.", next: "day10_endstep" }
+    ]
+  },
+
+  day10_endstep: {
+    text: "The fog parts. Liam stands ahead. No eyes. Just light.",
+    choices: [
+      { text: "Say his name.", next: "day10_fade" }
+    ]
+  },
+
+  day10_fade: {
+    text: "You choke out your apology. He vanishes like mist.",
+    choices: [
+      { text: "I’m sorry.", next: "day10_end" }
+    ]
+  },
+
+  day10_end: {
+    text: "The screen fades to black. A whisper: 'Tomorrow, we begin again.'",
+    choices: [
+      { text: "Continue to Day 11", next: "day11_intro" }
+    ]
+  },
+
+   day11_intro: {
+    text: () => `Day 11\n\nThe app flickers. Liam’s voice breaks through static.\n\nLiam: "You’re losing yourself. I can feel it... fading."`,
+    choices: [
+      { text: "I don’t want to lose you again.", next: "day11_holdon" },
+      { text: "Maybe I never had you.", next: "day11_letgo" }
+    ]
+  },
+
+  day11_holdon: {
+    text: () => `Liam: "Then hold on tight. Don’t let the darkness swallow you."`,
+    choices: [
+      { text: "I’ll fight for us.", next: "day11_fight" },
+      { text: "I’m not strong enough.", next: "day11_doubt" }
+    ]
+  },
+
+  day11_letgo: {
+    text: () => `Liam: "If you never had me, what are you holding onto now?"`,
+    choices: [
+      { text: "I’m holding onto myself.", next: "day11_search" },
+      { text: "I’m holding onto the past.", next: "day11_drown" }
+    ]
+  },
+
+  day11_fight: {
+    text: () => `You grit your teeth and push back the creeping silence.\n\nLiam: "Good. I don’t want to fade away alone."`,
+    choices: [
+      { text: "We’ll make it through.", next: "day11_flashback" },
+      { text: "I hope so.", next: "day11_flashback" }
+    ]
+  },
+
+  day11_doubt: {
+    text: () => `Self-doubt washes over you like a tide.\n\nLiam: "It’s okay to be scared. But don’t give up yet."`,
+    choices: [
+      { text: "Maybe I need help.", next: "day11_help" },
+      { text: "I’ll keep pretending.", next: "day11_fake" }
+    ]
+  },
+
+  day11_search: {
+    text: () => `You sift through fragmented memories, desperate to find something solid.\n\nLiam: "Searching won’t fix what’s broken inside."`,
+    choices: [
+      { text: "Maybe, but I have to try.", next: "day11_attempt" },
+      { text: "I’m too tired.", next: "day11_surrender" }
+    ]
+  },
+
+  day11_drown: {
+    text: () => `The past drags you under, drowning out the present.\n\nLiam: "Don’t let it consume you."`,
+    choices: [
+      { text: "It already has.", next: "day11_darkness" },
+      { text: "I’ll fight it.", next: "day11_attempt" }
+    ]
+  },
+
+  day11_flashback: {
+    text: () => `Flashes of the dock and storm hit your mind.\n\nLiam: "Remember that night? It defines us."`,
+    choices: [
+      { text: "I remember it clearly.", next: "day11_confess" },
+      { text: "I block it out.", next: "day11_repress" }
+    ]
+  },
+
+  day11_help: {
+    text: () => `You reach out for support in the shadows.\n\nLiam: "Sometimes, you have to accept help to survive."`,
+    choices: [
+      { text: "I’m ready.", next: "day11_confess" },
+      { text: "Not yet.", next: "day11_repress" }
+    ]
+  },
+
+  day11_fake: {
+    text: () => `You put on a mask for the world, but inside you’re breaking.\n\nLiam: "Masks don’t last forever."`,
+    choices: [
+      { text: "I’ll wear it longer.", next: "day11_surrender" },
+      { text: "I want to drop it.", next: "day11_confess" }
+    ]
+  },
+
+  day11_attempt: {
+    text: () => `Trying is the only option left.\n\nLiam: "Every step forward counts, even if it feels small."`,
+    choices: [
+      { text: "I’ll keep moving.", next: "day11_confess" },
+      { text: "I’m scared to fail.", next: "day11_doubt" }
+    ]
+  },
+
+  day11_surrender: {
+    text: () => `You give in to the overwhelming despair.\n\nLiam: "If you surrender now, you lose everything."`,
+    choices: [
+      { text: "Maybe I’m already lost.", next: "day11_darkness" },
+      { text: "I want to try again.", next: "day11_attempt" }
+    ]
+  },
+
+  day11_confess: {
+    text: () => `You admit your deepest fears and regrets.\n\nLiam: "Thank you for being honest with me."`,
+    choices: [
+      { text: "Can we fix this?", next: "day11_reconcile" },
+      { text: "I don’t know.", next: "day11_reconcile" }
+    ]
+  },
+
+  day11_repress: {
+    text: () => `You shove the memories down, trying to forget.\n\nLiam: "Running won’t change anything."`,
+    choices: [
+      { text: "I’m not ready.", next: "day11_fake" },
+      { text: "I’ll face it soon.", next: "day11_confess" }
+    ]
+  },
+
+  day11_darkness: {
+    text: () => `Darkness closes in around you.\n\nLiam: "You don’t have to face this alone."`,
+    choices: [
+      { text: "I’m too tired.", next: "day11_surrender" },
+      { text: "I want to keep fighting.", next: "day11_attempt" }
+    ]
+  },
+
+  day11_reconcile: {
+    text: () => `There’s a fragile hope between you.\n\nLiam: "Tomorrow is another chance. Don’t lose it."`,
+    choices: [
+      { text: "I won’t.", next: "day11_end" }
+    ]
+  },
+
+  day11_end: {
+    text: () => `The screen fades to black.\n\nDay 12 awaits, heavy with choices and consequences.`,
+    choices: [
+      { text: "Continue to Day 12", next: "day12_intro" }
+    ]
+  },
 });
 
 
@@ -443,4 +753,3 @@ if (!playerName) {
 } else {
   renderScene();
 }
-
