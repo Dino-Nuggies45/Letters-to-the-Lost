@@ -6,6 +6,13 @@ let currentDay = 1;
 const history = document.getElementById("messageHistory");
 const inputSection = document.getElementById("inputSection");
 
+function getDominantStat() {
+  let max = Math.max(stats.hope, stats.regret, stats.obsession);
+  if (stats.hope === max) return "hope";
+  if (stats.regret === max) return "regret";
+  return "obsession";
+}
+
 Object.assign(scenes, {
   day1_intro: {
     text: () => `Day 1\n\nYou open your laptop. It's still there.\n\nLiam: "I didn’t think you’d actually write back. Why now?"`,
@@ -703,10 +710,18 @@ Object.assign(scenes, {
     ]
   },
 
-  day12_end: {
-    text: () => `The screen fades. The weight of your choices hangs heavy.\n\nDay 13 awaits—for those who meet the challenge.\n\nWill you face the secret truths, or let the story end here?`,
+  scene_day12_end: {
+    text: "The fog clears. You’re left with one truth: someone must face what comes next.",
     choices: [
-      { text: "Prepare for what’s next.", next: "day13_intro" }
+      {
+        text: "Continue...",
+        next: () => {
+          const highest = getDominantStat();
+          if (highest === "hope") return "day13_hope_intro";
+          if (highest === "regret") return "day13_regret_intro";
+          return "day13_obsession_intro"; 
+        }
+      }
     ]
   },
 
@@ -965,10 +980,140 @@ Object.assign(scenes, {
   },
 
   day15_finalchoice: {
-    text: () => `Liam: "This is the final choice. Who do you want to be after this?"`,
+    text: () => `Liam: "I'll give you one more day...."`,
     choices: [
-      { text: "Someone who forgives themselves.", next: "ending_forgiveness" },
-      { text: "Someone who remembers but moves forward.", next: "ending_recovery" }
+      { text: "Day 16.", next: "day16_intro" }
+    ]
+  },
+
+  day16_intro: {
+    text: "Day 16\n\nThe messages have stopped.\n\nYour room is quiet. Mirror covered. App closed.\n\nBut something still lingers.\n\nToday, you choose the ending.",
+    choices: [
+      { text: "Walk into the sea", next: "day16_sea", stat: "regret" },
+      { text: "Delete all traces", next: "day16_delete", stat: "hope" },
+      { text: "Ask who's really in control", next: "day16_control", stat: "obsession" },
+      { text: "Call Liam’s name", next: "day16_grief", stat: "regret" },
+      { text: "Reopen the loop", next: "day16_loop", stat: "obsession" }
+    ]
+  },
+
+  day16_sea: {
+    text: "You walk barefoot into the surf, just like the night of the crash.\n\nLiam is waiting in the fog, or maybe it's you.",
+    choices: [
+      { text: "Embrace him", next: "ending_1" },
+      { text: "Walk past him", next: "ending_2" }
+    ]
+  },
+
+  day16_delete: {
+    text: "You open every file, every message, and delete them.\n\nEven the memories.",
+    choices: [
+      { text: "Start over", next: "ending_3" },
+      { text: "Shut down forever", next: "ending_4" }
+    ]
+  },
+
+  day16_control: {
+    text: "You ask the screen who is typing now. The reflection types first.",
+    choices: [
+      { text: "Take control back", next: "ending_5" },
+      { text: "Let it take over", next: "ending_6" }
+    ]
+  },
+
+  day16_grief: {
+    text: "You scream his name into the empty room.\n\nSomething replies.",
+    choices: [
+      { text: "Say you're sorry", next: "ending_7" },
+      { text: "Say goodbye", next: "ending_8" }
+    ]
+  },
+
+  day16_loop: {
+    text: "You reboot the entire story from Day 1.\n\nBut this time, you change everything.",
+    choices: [
+      { text: "Try to fix the past", next: "ending_9" },
+      { text: "Watch it happen again", next: "ending_10" }
+    ]
+  },
+
+  day16_confront: {
+    text: "You enter the mirror.\n\nNow you’re the one haunting the messages.",
+    choices: [
+      { text: "Accept your fate", next: "ending_11" },
+      { text: "Fight back", next: "ending_12" }
+    ]
+  },
+
+  day16_reflect: {
+    text: "You sit down and finally read the full crash report.\n\nIt says: one dead, one rewritten.",
+    choices: [
+      { text: "You died.", next: "ending_13" },
+      { text: "He died.", next: "ending_14" }
+    ]
+  },
+
+  day16_test: {
+    text: "You review the messages.\n\nNone of them have timestamps.",
+    choices: [
+      { text: "You were the test subject", next: "ending_15" },
+      { text: "He was the test subject", next: "ending_16" }
+    ]
+  },
+
+  day16_merge: {
+    text: "You and the ghost merge.\n\nOne voice. One mind.",
+    choices: [
+      { text: "Control it", next: "ending_17" },
+      { text: "Lose yourself", next: "ending_18" }
+    ]
+  },
+
+  day16_void: {
+    text: "You open a folder titled 'THE VOID'.\n\nIt's empty. But you hear breathing.",
+    choices: [
+      { text: "Breathe with it", next: "ending_19" },
+      { text: "Delete the folder", next: "ending_20" }
+    ]
+  },
+
+  day16_rewrite: {
+    text: "You find a draft labeled: rewrite_v2_final.txt",
+    choices: [
+      { text: "Upload it", next: "ending_21" },
+      { text: "Burn it", next: "ending_22" }
+    ]
+  },
+
+  day16_trial: {
+    text: "You're in a white room. A judge stands in shadow.\n\nYou are on trial for the crash.",
+    choices: [
+      { text: "Plead guilty", next: "ending_23" },
+      { text: "Blame the system", next: "ending_24" }
+    ]
+  },
+
+  day16_exit: {
+    text: "You find the EXIT button.\n\nBut it’s grayed out unless you choose.",
+    choices: [
+      { text: "End simulation", next: "ending_25" },
+      { text: "Stay", next: "ending_26" }
+    ]
+  },
+
+  day16_observe: {
+    text: "You observe your past self scrolling through messages.\n\nYou can’t interact. Only watch.",
+    choices: [
+      { text: "Close the tab", next: "ending_27" },
+      { text: "Keep watching forever", next: "ending_28" }
+    ]
+  },
+
+  day16_answer: {
+    text: "A final message arrives:\n\n> 'Are you ready to know who you are?'",
+    choices: [
+      { text: "Yes.", next: "ending_29" },
+      { text: "No.", next: "ending_30" }
     ]
   },
 
