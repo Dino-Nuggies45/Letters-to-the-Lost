@@ -1,4 +1,3 @@
-let pendingScene = null;
 let currentScene = "intro";
 let stats = { hope: 0, regret: 0, obsession: 0 };
 let playerName = "";
@@ -1514,14 +1513,40 @@ function showNamePrompt() {
   inputSection.appendChild(button);
 }
 
+function toggleChoiceHistory() {
+  const modal = document.getElementById("choiceHistoryModal");
+  const content = document.getElementById("choiceHistoryContent");
+  
+  if (modal.classList.contains("hidden")) {
+    if (timeline.length === 0) {
+      content.textContent = "No choices made yet.";
+    } else {
+      let historyText = "";
+      timeline.forEach(entry => {
+        historyText += `• ${entry.choice}\n`;
+      });
+      content.textContent = historyText;
+    }
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+  }
+}
+
 function toggleStatPanel() {
   const panel = document.getElementById("statPanel");
-  panel.classList.toggle("hidden");
-  updateStatBars();
+  const isHidden = panel.classList.contains("hidden");
+
+  if (isHidden) {
+    panel.classList.remove("hidden");
+    updateStatBars(); 
+  } else {
+    panel.classList.add("hidden");
+  }
 }
 
 function updateStatBars() {
-  const maxStat = Math.max(stats.hope, stats.regret, stats.obsession, 1); // Avoid divide by 0
+  const maxStat = Math.max(stats.hope, stats.regret, stats.obsession, 1); 
 
   const hopePercent = (stats.hope / maxStat) * 100;
   const regretPercent = (stats.regret / maxStat) * 100;
@@ -1573,33 +1598,6 @@ function renderScene() {
   saveGame();
 }
 
-function continueFromReflection() {
-  document.getElementById("reflectionScreen").classList.add("hidden");
-  document.getElementById("lettersApp").classList.remove("hidden");
-
-  if (pendingScene) {
-    currentScene = pendingScene;
-    pendingScene = null;
-    renderScene();
-  }
-}
-
-function showReflection(nextScene) {
-  document.getElementById("reflectionScreen").classList.remove("hidden");
-  document.getElementById("lettersApp").classList.add("hidden");
-  pendingScene = nextScene;
-
-  const dom = getDominantStat();
-  const felt = {
-    hope: "hopeful",
-    regret: "regretful",
-    obsession: "obsessed"
-  }[dom];
-
-  document.getElementById("reflectionText").textContent = `You lie awake, feeling mostly ${felt}.`;
-  document.getElementById("dailyStats").textContent = `Hope: ${stats.hope} | Regret: ${stats.regret} | Obsession: ${stats.obsession}`;
-}
-
 
 function showChoices(choices) {
   inputSection.innerHTML = "";
@@ -1646,9 +1644,10 @@ function showChoices(choices) {
       if (choice.stat) stats[choice.stat]++;
       currentDay++;
 
-      currentDay++;
-      saveGame();
-      showReflection(choice.next);
+    currentScene = choice.next;
+    currentDay++;
+    saveGame();
+    renderScene();
     };
     inputSection.appendChild(btn);
   });

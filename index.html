@@ -19,12 +19,7 @@
   <button id="resetButton" onclick="resetStory()" style="position: absolute; top: 1rem; left: 1rem; z-index: 999;">
   🔄 Reset Story
   </button>
-  <div id="reflectionScreen" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999;">
-    <p id="reflectionText" style="font-size: 1.5rem; margin-bottom: 1rem;">You lie awake, replaying the day’s memories...</p>
-    <p id="dailyStats" style="font-size: 1.2rem; margin-bottom: 1.5rem;"></p>
-    <button onclick="continueFromReflection()">Continue</button>
-  </div>
-
+ 
   <div id="lettersApp" class="app-window">
     <div class="app-header">
       <span>💌 Letters to the Lost</span>
@@ -61,7 +56,30 @@
       <div class="stat-bar" id="obsessionBar" style="background: #a0f; height: 8px; width: 0%; margin-bottom: 1rem;"></div>
     </div>
   </div>
+  <div id="choiceHistoryModal" class="hidden" style="
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    max-width: 600px;
+    max-height: 60vh;
+    background: #222;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    padding: 1rem;
+    overflow-y: auto;
+    z-index: 10000;
+  ">
+    <h2>Choice History</h2>
+    <div id="choiceHistoryContent" style="font-family: monospace; white-space: pre-wrap;"></div>
+    <button onclick="toggleChoiceHistory()" style="margin-top: 1rem;">Close</button>
+  </div>
 
+  <button onclick="toggleChoiceHistory()" style="position: absolute; top: 3rem; right: 1rem; z-index: 9999;">
+    📜 Choice History
+  </button>
 
   <button onclick="toggleStatPanel()" style="position: absolute; bottom: 1rem; left: 1rem; z-index: 9999;">📊 Stats</button>
 
