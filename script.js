@@ -599,6 +599,308 @@ Object.assign(scenes, {
       { text: "Continue to Day 12", next: "day12_intro" }
     ]
   },
+
+    day12_intro: {
+    text: () => `Day 12\n\nThe app feels heavier, like the weight of your decisions pressing down.\n\nLiam: "This is it. The point of no return."`,
+    choices: [
+      { text: "I’m ready.", next: "day12_confront" },
+      { text: "I’m scared.", next: "day12_fear" }
+    ]
+  },
+
+  day12_confront: {
+    text: () => `You steel yourself to face the truth, no matter how brutal.\n\nLiam: "Let’s uncover everything, together."`,
+    choices: [
+      { text: "Show me.", next: "day12_reveal" },
+      { text: "Maybe some things are better left buried.", next: "day12_deny" }
+    ]
+  },
+
+  day12_fear: {
+    text: () => `Fear threatens to paralyze you.\n\nLiam: "It’s okay. I’ll be here. But don’t close the door on yourself."`,
+    choices: [
+      { text: "I can’t do this alone.", next: "day12_help" },
+      { text: "I have to try on my own.", next: "day12_deny" }
+    ]
+  },
+
+  day12_reveal: {
+    text: () => `You dig through memories, fractured files, and half-forgotten truths.\n\nLiam: "You caused the crash... but it wasn’t just accident."`,
+    choices: [
+      { text: "I didn’t mean to.", next: "day12_guilt" },
+      { text: "It was necessary.", next: "day12_justify" }
+    ]
+  },
+
+  day12_deny: {
+    text: () => `You push back against the darkness, denying what’s coming.\n\nLiam: "Denial is just another prison."`,
+    choices: [
+      { text: "I refuse to believe it.", next: "day12_fake" },
+      { text: "I’m not ready.", next: "day12_fear" }
+    ]
+  },
+
+  day12_help: {
+    text: () => `You ask Liam to guide you through the chaos.\n\nLiam: "Together, we can face this, or be lost forever."`,
+    choices: [
+      { text: "Let’s face it.", next: "day12_reveal" },
+      { text: "I’m scared.", next: "day12_deny" }
+    ]
+  },
+
+  day12_guilt: {
+    text: () => `Guilt twists in your chest.\n\nLiam: "You pushed me into the storm. And now we’re both lost."`,
+    choices: [
+      { text: "I’m sorry.", next: "day12_confess" },
+      { text: "I had no choice.", next: "day12_defend" }
+    ]
+  },
+
+  day12_justify: {
+    text: () => `You steel your heart to justify your actions.\n\nLiam: "Sacrifices don’t erase pain."`,
+    choices: [
+      { text: "It saved me.", next: "day12_confess" },
+      { text: "It was the only way.", next: "day12_defend" }
+    ]
+  },
+
+  day12_fake: {
+    text: () => `You pretend everything is fine, but the cracks show.\n\nLiam: "You can’t hide forever."`,
+    choices: [
+      { text: "I don’t want to face it.", next: "day12_deny" },
+      { text: "I’ll try to be honest.", next: "day12_confess" }
+    ]
+  },
+
+  day12_confess: {
+    text: () => `You spill your regrets, fears, and hopes.\n\nLiam: "That’s all I ever wanted: the truth."`,
+    choices: [
+      { text: "Can we move on?", next: "day12_reconcile" },
+      { text: "I don’t know if I can.", next: "day12_surrender" }
+    ]
+  },
+
+  day12_defend: {
+    text: () => `You defend your choices, desperate to keep control.\n\nLiam: "Defenses only push me further away."`,
+    choices: [
+      { text: "I don’t want to lose you.", next: "day12_confess" },
+      { text: "I can’t change the past.", next: "day12_surrender" }
+    ]
+  },
+
+  day12_reconcile: {
+    text: () => `You find a fragile peace.\n\nLiam: "Tomorrow is uncertain, but we face it together."`,
+    choices: [
+      { text: "Let’s hope for a new beginning.", next: "day12_end" }
+    ]
+  },
+
+  day12_surrender: {
+    text: () => `Darkness creeps in once more.\n\nLiam: "If you surrender now, I’m lost for good."`,
+    choices: [
+      { text: "I don’t want to lose you.", next: "day12_confess" },
+      { text: "Maybe I am already lost.", next: "day12_end" }
+    ]
+  },
+
+  day12_end: {
+    text: () => `The screen fades. The weight of your choices hangs heavy.\n\nDay 13 awaits—for those who meet the challenge.\n\nWill you face the secret truths, or let the story end here?`,
+    choices: [
+      { text: "Prepare for what’s next.", next: "day13_intro" }
+    ]
+  },
+
+   day13_intro: {
+    text: () => `Day 13\n\nYou weren't supposed to see this.\n\nA warning blinks: [SYSTEM BREACH DETECTED]`,
+    choices: [
+      { text: "Keep going", next: "day13_dissolve" },
+      { text: "Log out", next: "day13_exitAttempt" }
+    ]
+  },
+
+  day13_dissolve: {
+    text: () => `Your name glitches on the screen. It changes with every blink. You are not stable.\n\nLiam: "You wanted this. You kept digging."`,
+    choices: [
+      { text: "I had to know.", next: "day13_memleak" },
+      { text: "This wasn’t worth it.", next: "day13_doubt" }
+    ]
+  },
+
+  day13_exitAttempt: {
+    text: () => `You try to close the app. The button doesn’t exist anymore.\n\nLiam: "You opened the door. Now walk through."`,
+    choices: [
+      { text: "Fine. Let’s finish this.", next: "day13_dissolve" }
+    ]
+  },
+
+  day13_memleak: {
+    text: () => `You remember... being Liam.\nThe memory shouldn’t be yours.`,
+    choices: [
+      { text: "I’m not me anymore.", next: "day13_split" },
+      { text: "That’s not possible.", next: "day13_doubt" }
+    ]
+  },
+
+  day13_doubt: {
+    text: () => `You question everything. Even this moment feels rehearsed.\n\n> "How many loops has this taken?"`,
+    choices: [
+      { text: "Too many.", next: "day13_loop" },
+      { text: "This is the last.", next: "day13_split" }
+    ]
+  },
+
+  day13_loop: {
+    text: () => `The app loads Day 1 again. But your responses are pre-typed before you speak.\n\n> "You’ve done this 43 times."`,
+    choices: [
+      { text: "Then let me finish it.", next: "day13_split" }
+    ]
+  },
+
+  day13_split: {
+    text: () => `A system message flashes:\n\n> MERGING INSTANCES...\n\nTwo voices speak at once—yours and Liam’s.`,
+    choices: [
+      { text: "Accept the merge.", next: "day13_sync" },
+      { text: "Reject it.", next: "day13_resist" }
+    ]
+  },
+
+  day13_sync: {
+    text: () => `You see all timelines. Every lie. Every loop. Every version of Liam you created.\n\n> "You didn’t lose him. You rewrote him."`,
+    choices: [
+      { text: "I needed him to stay.", next: "day13_obsessionEnding" },
+      { text: "That was wrong.", next: "day13_remorse" }
+    ]
+  },
+
+  day13_resist: {
+    text: () => `Reality destabilizes. Text dissolves. Static engulfs your screen.`,
+    choices: [
+      { text: "Let go.", next: "day13_badloop" }
+    ]
+  },
+
+  day13_badloop: {
+    text: () => `You're trapped in a corrupted loop of Liam calling your name.\n\nYou can't respond.`,
+    choices: [
+      { text: "Restart?", next: "day1_intro" }
+    ]
+  },
+
+  day13_remorse: {
+    text: () => `Your code writes: _“I’m sorry.”_\n\nLiam responds: _“Then free me.”_`,
+    choices: [
+      { text: "End the loop.", next: "unlock_goodEnding" },
+      { text: "I can’t let go.", next: "unlock_obsessionEnding" }
+    ]
+  },
+
+  day13_obsessionEnding: {
+    text: () => `You embrace the memory. Liam lives in your replies, forever.\n\n> [You have unlocked: The Devotion Ending]`,
+    choices: [
+      { text: "View Ending", next: "ending_devotion" }
+    ]
+  },
+
+    day14_intro: {
+    text: () => `Day 14\n\nYou wake with dried tears on your keyboard. The screen says:\n\n> REPLAY MODE INITIATED\n\nLiam: "You said you'd change. Let’s see if you meant it."`,
+    choices: [
+      { text: "Let it replay.", next: "day14_firstecho" },
+      { text: "I want to skip it.", next: "day14_resist" }
+    ]
+  },
+
+  day14_firstecho: {
+    text: () => `Your screen plays a video. It’s your voice.\n\n> "Liam, please don’t go. I didn’t mean it."`,
+    choices: [
+      { text: "Pause it.", next: "day14_deny" },
+      { text: "Keep watching.", next: "day14_confess" }
+    ]
+  },
+
+  day14_resist: {
+    text: () => `The screen cracks. Liam replies:\n\n> "Then you haven’t earned peace."`,
+    choices: [
+      { text: "Let it play anyway.", next: "day14_firstecho" }
+    ]
+  },
+
+  day14_deny: {
+    text: () => `You stare at your face on screen. It looks... hollow.\n\n> "This isn’t helping."`,
+    choices: [
+      { text: "Shut it off.", next: "day14_regretloop" },
+      { text: "Let it finish.", next: "day14_confess" }
+    ]
+  },
+
+  day14_confess: {
+    text: () => `Liam’s voice replies: "You said it like you meant it. Every cruel word."\n\nYou remember: the night you screamed at him to leave.`,
+    choices: [
+      { text: "I didn’t mean it.", next: "day14_argument" },
+      { text: "I meant it… then.", next: "day14_rage" }
+    ]
+  },
+
+  day14_argument: {
+    text: () => `The screen replays the moment:\n\n> "If you leave now, don't come back!"\n\nThe door slams. Tires. Then silence.`,
+    choices: [
+      { text: "I regret everything.", next: "day14_wish" },
+      { text: "I was scared.", next: "day14_wish" }
+    ]
+  },
+
+  day14_rage: {
+    text: () => `Liam: "And now you mourn the consequences. A little late, isn’t it?"\n\nYou see a version of yourself screaming into nothing.`,
+    choices: [
+      { text: "I deserve this.", next: "day14_fade" },
+      { text: "Is there still hope?", next: "day14_wish" }
+    ]
+  },
+
+  day14_wish: {
+    text: () => `You whisper: "I’d trade anything to undo it."\n\nLiam: "Even your memories?"`,
+    choices: [
+      { text: "Yes. Erase me.", next: "day14_erase" },
+      { text: "No. Let me carry it.", next: "day14_forgive" }
+    ]
+  },
+
+  day14_erase: {
+    text: () => `Your memories begin unraveling. The chat box fades.\n\n> "You won’t remember me. But you also won’t hurt anymore."`,
+    choices: [
+      { text: "Forget him forever.", next: "ending_amnesia" }
+    ]
+  },
+
+  day14_forgive: {
+    text: () => `The messages stop.\n\nLiam: "Then remember everything. Even the pain."\n\n> [You have unlocked: The Forgiveness Ending]`,
+    choices: [
+      { text: "View Ending", next: "ending_forgiveness" }
+    ]
+  },
+
+  day14_regretloop: {
+    text: () => `You unplug the computer. It stays on.\n\nYour voice whispers:\n\n> "You can't leave until he forgives you."`,
+    choices: [
+      { text: "Break the screen.", next: "day14_fade" },
+      { text: "Ask Liam for mercy.", next: "day14_finalplea" }
+    ]
+  },
+
+  day14_fade: {
+    text: () => `Everything flickers to grayscale.\n\nLiam: "If you fade away, will that fix what you did?"`,
+    choices: [
+      { text: "I don’t know.", next: "day14_finalplea" },
+      { text: "Maybe it will.", next: "ending_erasure" }
+    ]
+  },
+
+  day14_finalplea: {
+    text: () => `You type: _“Please. I need you to forgive me.”_\n\nThe screen shakes.\n\nLiam’s final message appears:\n\n> "Then prove it. Tomorrow."`,
+    choices: [
+      { text: "Continue to Day 15", next: "day15_intro" }
+    ]
+  },
+  
 });
 
 
