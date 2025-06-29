@@ -19,6 +19,11 @@
   <button id="resetButton" onclick="resetStory()" style="position: absolute; top: 1rem; left: 1rem; z-index: 999;">
   🔄 Reset Story
   </button>
+  <div id="reflectionScreen" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999;">
+    <p id="reflectionText" style="font-size: 1.5rem; margin-bottom: 1rem;">You lie awake, replaying the day’s memories...</p>
+    <p id="dailyStats" style="font-size: 1.2rem; margin-bottom: 1.5rem;"></p>
+    <button onclick="continueFromReflection()">Continue</button>
+  </div>
 
   <div id="lettersApp" class="app-window">
     <div class="app-header">

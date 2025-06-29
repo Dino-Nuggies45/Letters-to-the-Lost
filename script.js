@@ -1559,6 +1559,25 @@ function renderScene() {
   saveGame();
 }
 
+let pendingScene = null;
+
+function showReflection(nextScene) {
+  document.getElementById("reflectionScreen").classList.remove("hidden");
+  document.getElementById("lettersApp").classList.add("hidden");
+  pendingScene = nextScene;
+
+  
+  const dom = getDominantStat();
+  const felt = {
+    hope: "hopeful",
+    regret: "regretful",
+    obsession: "obsessed"
+  }[dom];
+
+  document.getElementById("reflectionText").textContent = `You lie awake, feeling mostly ${felt}.`;
+  document.getElementById("dailyStats").textContent = `Hope: ${stats.hope} | Regret: ${stats.regret} | Obsession: ${stats.obsession}`;
+}
+
 
 function showChoices(choices) {
   inputSection.innerHTML = "";
@@ -1581,6 +1600,7 @@ function showChoices(choices) {
     inputSection.appendChild(btn);
     return;
   }
+  
 
   choices.forEach(choice => {
     const btn = document.createElement("button");
@@ -1602,12 +1622,13 @@ function showChoices(choices) {
 
      
       if (choice.stat) stats[choice.stat]++;
+      currentDay++;
 
      
       currentScene = choice.next;
       currentDay++;
       saveGame();
-      renderScene();
+      showReflection(choice.next);
     };
     inputSection.appendChild(btn);
   });
