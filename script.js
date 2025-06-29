@@ -1121,7 +1121,7 @@ const scenes = {
     text: "You're in a white room. A judge stands in shadow.\n\nYou are on trial for the crash.",
     choices: [
       { text: "Plead guilty", next: "ending_23" },
-      { text: "Blame the system", next: "ending_24" }
+      { text: "Blame the system", next: "ending_24"}
     ]
   },
 
@@ -1147,6 +1147,164 @@ const scenes = {
       { text: "Yes.", next: "ending_29" },
       { text: "No.", next: "ending_30" }
     ]
+  },
+  archive_intro: {
+    text: () => `A static-filled screen flickers to life.\n\n> "You have accessed THE ARCHIVE. These are not your memories. Proceed with caution."\n\nDo you continue?`,
+    choices: [
+      { text: "Enter the Archive", next: "memory1" },
+      { text: "Turn back", next: "intro" }
+    ]
+  },
+  memory1: {
+    text: () => `MEMORY 01: Birthday\n\nLiam laughs, holding a candlelit cake.\n"You really remembered? Even after... everything?"\n\nA happy memory. Mostly.`,
+    choices: [
+      { text: "Restore this memory", next: "memory2A" },
+      { text: "Corrupt it", stat: "obsession", next: "memory2B" },
+      { text: "Forget it", stat: "regret", next: "memory2C" }
+    ]
+  },
+
+  memory2A: {
+    text: () => `MEMORY 02A: Hospital Visit\n\nYou sit beside Liam's bed. He’s half-awake. "Do you believe in second chances?"`,
+    choices: [
+      { text: "Yes", stat: "hope", next: "memory3A" },
+      { text: "No", stat: "regret", next: "memory3B" }
+    ]
+  },
+
+  memory2B: {
+    text: () => `MEMORY 02B: Distorted Celebration\n\nThe birthday scene flickers. Liam repeats "You remembered?" until his voice breaks.`,
+    choices: [
+      { text: "Watch silently", stat: "obsession", next: "memory3C" },
+      { text: "Exit early", stat: "regret", next: "memory3D" }
+    ]
+  },
+
+  memory2C: {
+    text: () => `MEMORY 02C: Absence\n\nYou skip the memory entirely. > "Missing Data." You sense something has been lost.`,
+    choices: [
+      { text: "Continue", next: "memory3E" }
+    ]
+  },
+
+  memory3A: {
+    text: () => `MEMORY 03A: Field\n\nYou and Liam as children. He falls. You help him up. You forgot this day. He never did.`,
+    choices: [
+      { text: "Preserve it", stat: "hope", next: "memory4A" },
+      { text: "Remove your name", stat: "regret", next: "memory4B" }
+    ]
+  },
+
+  memory3B: {
+    text: () => `MEMORY 03B: Denial\n\nLiam stares in a mirror. "I thought I was getting better." You try to speak. You can’t.`,
+    choices: [
+      { text: "Stay silent", stat: "regret", next: "memory4C" },
+      { text: "Force the system to speak", stat: "obsession", next: "memory4D" }
+    ]
+  },
+
+  memory3C: {
+    text: () => `MEMORY 03C: Echoes\n\nLiam says your name. Backwards. > "Bring me back." You begin typing without meaning to.`,
+    choices: [
+      { text: "Give in", stat: "obsession", next: "memory4E" },
+      { text: "Shut it down", stat: "hope", next: "memory4F" }
+    ]
+  },
+
+  memory3D: {
+    text: () => `MEMORY 03D: Withdrawal\n\nYou unplug. But the Archive waits. > "If you won’t finish, someone else will."`,
+    choices: [
+      { text: "Return to memory1", next: "memory1" },
+      { text: "Jump ahead", stat: "obsession", next: "memory5" }
+    ]
+  },
+
+  memory3E: {
+    text: () => `MEMORY 03E: Reboot\n\nYou see code. A line catches your eye: > SUBJECT: LIAM V. > STATUS: INCOMPLETE`,
+    choices: [
+      { text: "Delete user logs", stat: "regret", next: "memory4G" },
+      { text: "Continue anyway", stat: "obsession", next: "memory4H" }
+    ]
+  },
+
+  memory4A: {
+    text: () => `MEMORY 04A: Future Birthday\n\nAn imagined birthday. You both smile. It never happened.`,
+    choices: [
+      { text: "Let it be", stat: "hope", next: "memory5" },
+      { text: "Delete it", stat: "regret", next: "memory5" }
+    ]
+  },
+
+  memory4B: {
+    text: () => `MEMORY 04B: Erased Identity\n\nYour name vanishes from Liam’s memory. He forgets you. You watch him smile anyway.`,
+    choices: [
+      { text: "Accept it", stat: "hope", next: "memory5" },
+      { text: "Undo it", stat: "obsession", next: "memory5" }
+    ]
+  },
+
+  memory4C: {
+    text: () => `MEMORY 04C: Silence\n\nYou fade. Liam talks to no one. > "Why won’t they answer me?"`,
+    choices: [
+      { text: "Leave", next: "memory5" }
+    ]
+  },
+
+  memory4D: {
+    text: () => `MEMORY 04D: System Override\n\nYour voice breaks through. Liam hears you.\n> "You’re still here."\n> "I’m not supposed to remember."\n> "But I do."`,
+    choices: [
+      { text: "Apologize", stat: "regret", next: "memory5" },
+      { text: "Encourage him", stat: "hope", next: "memory5" }
+    ]
+  },
+
+  memory4E: {
+    text: () => `MEMORY 04E: Surrender\n\nYou type: > "I’ll bring you back."\nLiam nods. > "Then we’ll both forget."`,
+    choices: [
+      { text: "Proceed", stat: "obsession", next: "memory5" }
+    ]
+  },
+
+  memory4F: {
+    text: () => `MEMORY 04F: Shutdown\n\nYou force the Archive to close. The screen goes black.\n> But it reopens.`,
+    choices: [
+      { text: "Continue", next: "memory5" }
+    ]
+  },
+
+  memory4G: {
+    text: () => `MEMORY 04G: Clean Slate\n\nEverything is wiped. But the system says:\n> BACKUPS FOUND\n> Would you like to restore?`,
+    choices: [
+      { text: "Restore backup", stat: "hope", next: "memory5" },
+      { text: "Purge all", stat: "regret", next: "memory5" }
+    ]
+  },
+
+  memory4H: {
+    text: () => `MEMORY 04H: Continued Observation\n\nThe logs show test dates. You were part of this. You signed off on him.`,
+    choices: [
+      { text: "Deny it", stat: "regret", next: "memory5" },
+      { text: "Own it", stat: "obsession", next: "memory5" }
+    ]
+  },
+
+  memory5: {
+    text: () => `MEMORY 05: Final Layer\n\nThe Archive fractures. All paths converge. Liam stands before you.\n\n> "What happens now?"`,
+    choices: [
+      { text: "Merge with Liam", next: "ending_archiveMerge" },
+      { text: "Erase the Archive", next: "ending_memoryWipe" },
+      { text: "Set him free", next: "ending_peaceful" }
+    ]
+  },
+
+  ending_archiveMerge: {
+    text: () => `You upload yourself. Liam becomes real again — but with your memories. You are gone. But he lives. ...and he screams.`,
+    choices: []
+  },
+
+  ending_memoryWipe: {
+    text: () => `You purge the Archive. Everything. Every trace of Liam. Every regret. Even your name. Nothing remains.`,
+    choices: []
   },
 
   ending_1: {
@@ -1360,7 +1518,7 @@ const scenes = {
     ]
   },
 
-    nlock_goodEnding: {
+  unlock_goodEnding: {
       text: `The final reply is different.
   No static. No glitches. Just Liam’s voice clear, warm, whole.
 
@@ -1378,7 +1536,7 @@ const scenes = {
 
   The screen fades to white.`,
     choices: []
-    },
+  },
 
   unlock_obsessionEnding: {
     text: `You kept pushing.
@@ -1681,6 +1839,13 @@ function closeApp(app) {
     document.getElementById("diceApp").classList.add("hidden");
   }
   document.getElementById("desktop").classList.remove("hidden");
+}
+
+function confirmClose() {
+  const confirmExit = confirm("Would you like to exit the game?");
+  if (confirmExit) {
+    closeApp('letters');
+  }
 }
 
 function resetStory() {
