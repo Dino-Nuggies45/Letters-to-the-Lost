@@ -55,7 +55,7 @@ const scenes = {
   },
 
   day1_memoryhook: {
-    text: () => `Liam: "I wish I remembered. Sometimes I see headlights. Screams. But mostly, silence."\n\nYou remember flashes—glass, metal, the sound of your name. Why were you there?`,
+    text: () => `Liam: "I wish I remembered. Sometimes I see headlights. Screams. But mostly, silence."\n\nYou remember flashes glass, metal, the sound of your name. Why were you there?`,
     choices: [
       { text: "You were driving. I think.", next: "day1_conflict1" },
       { text: "I wasn’t supposed to be in the car.", next: "day1_conflict2" }
@@ -163,7 +163,7 @@ const scenes = {
   },
 
   day3_end: {
-    text: () => `Liam: "Tomorrow, I’ll show you what the report said—what really happened.\n\nBut be ready. It might end us both."`,
+    text: () => `Liam: "Tomorrow, I’ll show you what the report said what really happened.\n\nBut be ready. It might end us both."`,
     choices: [
       { text: "I’ll be here.", next: "day4_intro" }
     ]
@@ -233,7 +233,7 @@ const scenes = {
   },
 
   day5_collapse: {
-    text: () => `Everything in your room flickers—frames blur, your own face lags.\n\nLiam: "One of us was overwritten. The crash was the rewrite point."`,
+    text: () => `Everything in your room flickers frames blur, your own face lags.\n\nLiam: "One of us was overwritten. The crash was the rewrite point."`,
     choices: [
       { text: "So… I replaced you?", next: "day5_end" },
       { text: "Then what are you?", next: "day5_end" }
@@ -264,7 +264,7 @@ const scenes = {
   },
 
   day6_shatter: {
-    text: () => `The screen cracks—like glass. Static bleeds from the speakers.\n\nLiam: "I wanted to forgive you. But you let it in."\n\nA knock at the door.`,
+    text: () => `The screen cracks like glass. Static bleeds from the speakers.\n\nLiam: "I wanted to forgive you. But you let it in."\n\nA knock at the door.`,
     choices: [
       { text: "Open it.", next: "day7_intro" },
       { text: "Don’t move.", next: "day7_intro" }
@@ -403,7 +403,7 @@ const scenes = {
   },
 
   day10_confront: {
-    text: "Welcome back — the ghost voice quivers with accusation.",
+    text: "Welcome back   the ghost voice quivers with accusation.",
     choices: [
       { text: "What do you want from me?", next: "day10_distort" },
       { text: "Leave me alone.", next: "day10_flashback" }
@@ -804,7 +804,7 @@ const scenes = {
   },
 
   day13_split: {
-    text: () => `A system message flashes:\n\n> MERGING INSTANCES...\n\nTwo voices speak at once—yours and Liam’s.`,
+    text: () => `A system message flashes:\n\n> MERGING INSTANCES...\n\nTwo voices speak at once yours and Liam’s.`,
     choices: [
       { text: "Accept the merge.", next: "day13_sync" },
       { text: "Reject it.", next: "day13_resist" }
@@ -956,7 +956,7 @@ const scenes = {
   },
 
   day15_faith: {
-    text: () => `Liam’s name flickers.\n\n> "Then let’s try something new. Tell me about who you are now—not who you were."`,
+    text: () => `Liam’s name flickers.\n\n> "Then let’s try something new. Tell me about who you are now not who you were."`,
     choices: [
       { text: "I’m trying to be better.", next: "day15_mirror" },
       { text: "I don’t really know yet.", next: "day15_honest" }
@@ -1362,7 +1362,7 @@ const scenes = {
 
     nlock_goodEnding: {
       text: `The final reply is different.
-  No static. No glitches. Just Liam’s voice—clear, warm, whole.
+  No static. No glitches. Just Liam’s voice clear, warm, whole.
 
   “You found me.”
 
@@ -1397,7 +1397,7 @@ const scenes = {
   },
 
   ending_devotion: {
-    text: `You gave everything—your time, your memories, your self.
+    text: `You gave everything your time, your memories, your self.
   Piece by piece, you rewrote who you were for a ghost that couldn’t love you back.
 
   Liam never asked for this. But you insisted.
@@ -1432,7 +1432,7 @@ const scenes = {
   You forgive yourself for the past you cannot change.
 
   Liam’s messages soften.
-  No blame, no anger—only understanding.
+  No blame, no anger only understanding.
 
   You write back, finally free of the weight.
 
@@ -1451,7 +1451,7 @@ const scenes = {
 
   The screen goes dark.
 
-  You have chosen to forget—and with it, the pain.`,
+  You have chosen to forget and with it, the pain.`,
     choices: []
     },
 
@@ -1564,12 +1564,16 @@ function showChoices(choices) {
   inputSection.innerHTML = "";
 
   if (!choices || choices.length === 0) {
+    endingsSeen.add(currentScene);
+    localStorage.setItem("endingsSeen", JSON.stringify([...endingsSeen]));
+
     const btn = document.createElement("button");
     btn.textContent = "Restart";
     btn.onclick = () => {
       currentScene = "intro";
       stats = { hope: 0, regret: 0, obsession: 0 };
       currentDay = 1;
+      timeline = [];
       history.innerHTML = "";
       checkTimelineUnlock();
       renderScene();
@@ -1579,30 +1583,34 @@ function showChoices(choices) {
   }
 
   choices.forEach(choice => {
-  const btn = document.createElement("button");
-  btn.textContent = choice.text;
-  btn.onclick = () => {
-    playerMsg.className = "dm-message player";
-    playerMsg.textContent = choice.text;
-    history.appendChild(playerMsg);
-    history.scrollTop = history.scrollHeight;
+    const btn = document.createElement("button");
+    btn.textContent = choice.text;
+    btn.onclick = () => {
+      const playerMsg = document.createElement("div");
+      playerMsg.className = "dm-message player";
+      playerMsg.textContent = choice.text;
+      history.appendChild(playerMsg);
+      history.scrollTop = history.scrollHeight;
 
-    if (choice.stat) stats[choice.stat]++;
+     
+      timeline.push({
+        day: currentDay,
+        scene: currentScene,
+        choice: choice.text,
+        stats: { ...stats }
+      });
 
-    timeline.push({
-      day: currentDay,
-      scene: currentScene,
-      choice: choice.text,
-      stats: { ...stats }
-    });
+     
+      if (choice.stat) stats[choice.stat]++;
 
-    currentScene = choice.next;
-    currentDay++;
-    saveGame();
-    renderScene();
-  };
-  inputSection.appendChild(btn);
-});
+     
+      currentScene = choice.next;
+      currentDay++;
+      saveGame();
+      renderScene();
+    };
+    inputSection.appendChild(btn);
+  });
 }
 
 function openApp(app) {
@@ -1663,6 +1671,31 @@ function resetStory() {
 
 const storedEndings = localStorage.getItem("endingsSeen");
 if (storedEndings) endingsSeen = new Set(JSON.parse(storedEndings));
+
+function resetStory() {
+  if (!confirm("Are you sure you want to reset all progress and start over?")) return;
+
+ 
+  localStorage.removeItem("lettersSave");
+  localStorage.removeItem("endingsSeen");
+
+  
+  currentScene = "intro";
+  stats = { hope: 0, regret: 0, obsession: 0 };
+  playerName = "";
+  currentDay = 1;
+  timeline = [];
+  endingsSeen = new Set();
+
+  
+  history.innerHTML = "";
+  inputSection.innerHTML = "";
+
+
+  showNamePrompt();
+
+  document.getElementById("timelineButton")?.classList.add("hidden");
+}
 
 if (!playerName) {
   openApp("letters");
