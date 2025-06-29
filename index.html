@@ -43,9 +43,27 @@
   </div>
 
 
-  <button id="timelineButton" class="hidden" onclick="openTimeline()" style="position: absolute; top: 1rem; right: 1rem; z-index: 999;">
-    📜 View Timeline
-  </button>
+    <button id="timelineButton" class="hidden" onclick="openTimeline()" style="position: absolute; top: 1rem; right: 1rem; z-index: 999;">
+      📜 View Timeline
+    </button>
+    <div id="statPanel" class="hidden" style="position: fixed; top: 0; left: 0; height: 100vh; width: 160px; background: rgba(0, 0, 0, 0.85); color: white; padding: 1rem; z-index: 9998; font-family: monospace;">
+    <h3 style="margin-top: 0;">Your State</h3>
+    <div>
+      <div>Hope</div>
+      <div class="stat-bar" id="hopeBar" style="background: #0af; height: 8px; width: 0%; margin-bottom: 1rem;"></div>
+    </div>
+    <div>
+      <div>Regret</div>
+      <div class="stat-bar" id="regretBar" style="background: #f33; height: 8px; width: 0%; margin-bottom: 1rem;"></div>
+    </div>
+    <div>
+      <div>Obsession</div>
+      <div class="stat-bar" id="obsessionBar" style="background: #a0f; height: 8px; width: 0%; margin-bottom: 1rem;"></div>
+    </div>
+  </div>
+
+
+  <button onclick="toggleStatPanel()" style="position: absolute; bottom: 1rem; left: 1rem; z-index: 9999;">📊 Stats</button>
 
   <script src="script.js"></script>
 </body>

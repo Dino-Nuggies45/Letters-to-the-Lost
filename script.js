@@ -1,3 +1,4 @@
+let pendingScene = null;
 let currentScene = "intro";
 let stats = { hope: 0, regret: 0, obsession: 0 };
 let playerName = "";
@@ -1513,9 +1514,28 @@ function showNamePrompt() {
   inputSection.appendChild(button);
 }
 
+function toggleStatPanel() {
+  const panel = document.getElementById("statPanel");
+  panel.classList.toggle("hidden");
+  updateStatBars();
+}
+
+function updateStatBars() {
+  const maxStat = Math.max(stats.hope, stats.regret, stats.obsession, 1); // Avoid divide by 0
+
+  const hopePercent = (stats.hope / maxStat) * 100;
+  const regretPercent = (stats.regret / maxStat) * 100;
+  const obsessionPercent = (stats.obsession / maxStat) * 100;
+
+  document.getElementById("hopeBar").style.width = `${hopePercent}%`;
+  document.getElementById("regretBar").style.width = `${regretPercent}%`;
+  document.getElementById("obsessionBar").style.width = `${obsessionPercent}%`;
+}
+
+const storedEndings = localStorage.getItem("endingsSeen");
+if (storedEndings) endingsSeen = new Set(JSON.parse(storedEndings));
 
 function renderScene() {
-  
   history.innerHTML = "";
 
   const scene = scenes[currentScene];
@@ -1547,26 +1567,28 @@ function renderScene() {
     }
   }
 
-  function checkTimelineUnlock() {
-    if (endingsSeen.size >= 3) {
-      document.getElementById("timelineButton").classList.remove("hidden");
-    }
-  }
-  console.log("Rendering scene:", currentScene, scenes[currentScene]);
-
   typeWriter();
   checkTimelineUnlock();
+  updateStatBars(); 
   saveGame();
 }
 
-let pendingScene = null;
+function continueFromReflection() {
+  document.getElementById("reflectionScreen").classList.add("hidden");
+  document.getElementById("lettersApp").classList.remove("hidden");
+
+  if (pendingScene) {
+    currentScene = pendingScene;
+    pendingScene = null;
+    renderScene();
+  }
+}
 
 function showReflection(nextScene) {
   document.getElementById("reflectionScreen").classList.remove("hidden");
   document.getElementById("lettersApp").classList.add("hidden");
   pendingScene = nextScene;
 
-  
   const dom = getDominantStat();
   const felt = {
     hope: "hopeful",
@@ -1624,8 +1646,6 @@ function showChoices(choices) {
       if (choice.stat) stats[choice.stat]++;
       currentDay++;
 
-     
-      currentScene = choice.next;
       currentDay++;
       saveGame();
       showReflection(choice.next);
@@ -1663,35 +1683,6 @@ function closeApp(app) {
   }
   document.getElementById("desktop").classList.remove("hidden");
 }
-
-function resetStory() {
-  if (!confirm("Are you sure you want to reset all progress and start over?")) return;
-
- 
-  localStorage.removeItem("lettersSave");
-  localStorage.removeItem("endingsSeen");
-
-  
-  currentScene = "intro";
-  stats = { hope: 0, regret: 0, obsession: 0 };
-  playerName = "";
-  currentDay = 1;
-  timeline = [];
-  endingsSeen = new Set();
-
-  
-  history.innerHTML = "";
-  inputSection.innerHTML = "";
-
-
-  showNamePrompt();
-
-  document.getElementById("timelineButton")?.classList.add("hidden");
-}
-
-
-const storedEndings = localStorage.getItem("endingsSeen");
-if (storedEndings) endingsSeen = new Set(JSON.parse(storedEndings));
 
 function resetStory() {
   if (!confirm("Are you sure you want to reset all progress and start over?")) return;
