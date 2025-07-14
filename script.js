@@ -1025,7 +1025,10 @@ const scenes = {
       { text: "Delete all traces", next: "day16_delete", stat: "hope" },
       { text: "Ask who's really in control", next: "day16_control", stat: "obsession" },
       { text: "Call Liam’s name", next: "day16_grief", stat: "regret" },
-      { text: "Reopen the loop", next: "day16_loop", stat: "obsession" }
+      { text: "Reopen the loop", next: "day16_loop", stat: "obsession" },
+      { text: "Restore corrupted archive", next: "archiveCorruption_intro", stat: "obsession" },
+      { text: "Enter the mirror", next: " mirrorRealm_intro", stat: "regret" },
+      { text: "Turn on the radio", next: "forgottenVoices_intro", stat: "regret" },
     ]
   },
 
@@ -1625,12 +1628,299 @@ const scenes = {
   A soft smile forms.  
   The end.`,
   choices: []
-  }
+  },
+  archiveCorruption_intro: {
+    text: () => `A blinking file appears in the Archive.\n\n[corrupted_log_19.txt]\n“Restoration suggested. Integrity: 47%.”`,
+    choices: [
+      { text: "Restore it anyway", next: "corruptedFragment_1", stat: "obsession" },
+      { text: "Ask the system for help", next: "askAI_forHelp", stat: "hope" }
+    ]
+  },
+  corruptedFragment_1: {
+    text: () => `“—you said you’d be there—”\n\nLiam’s voice twists. Static. Silence.\nA line appears: [This memory is not yours.]`,
+    choices: [
+      { text: "Continue playback", next: "corruptedFragment_2", stat: "regret" },
+      { text: "Stop and analyze corruption", next: "memoryLeak_detected", stat: "hope" }
+    ]
+  },
+  corruptedFragment_2: {
+    text: () => `It’s your voice, not his. But saying things you don’t remember.\n“You promised. You let me drown.”`,
+    choices: [
+      { text: "Request system audit", next: "askAI_forHelp", stat: "hope" },
+      { text: "Keep listening", next: "regretVision_1", stat: "obsession" }
+    ]
+  },
+  askAI_forHelp: {
+    text: () => `System: MEMORY THREAD COMPROMISED.\nDo you wish to isolate or override?`,
+    choices: [
+      { text: "Isolate thread", next: "memoryErased_clean", stat: "hope" },
+      { text: "Override warning", next: "commit_override", stat: "obsession" }
+    ]
+  },
+  memoryLeak_detected: {
+    text: () => `System: Memory leak spreading. Emotional containment failed.\nSuggest immediate purge.`,
+    choices: [
+      { text: "Proceed with purge", next: "purge_confirm_1", stat: "regret" },
+      { text: "Cancel and explore", next: "deepDive_loop", stat: "obsession" }
+    ]
+  },
+  commit_override: {
+    text: () => `Override accepted.\nWarning: Unrecoverable paths engaged.`,
+    choices: [
+      { text: "Proceed", next: "regretVision_1" }
+    ]
+  },
+  regretVision_1: {
+    text: () => `You see the moment again. Liam standing by the cliff. But you’re the one shouting.\nYour voice is distorted. Wrong.`,
+    choices: [
+      { text: "Try to remember", next: "regretVision_2", stat: "regret" },
+      { text: "Deny this version", next: "obsessionThread_found", stat: "obsession" }
+    ]
+  },
+  regretVision_2: {
+    text: () => `Liam was asking for help. You hesitated.\nThe memory won't stop repeating.`,
+    choices: [
+      { text: "Break the loop", next: "escapeLoop_attempt", stat: "hope" },
+      { text: "Accept blame", next: "obsessionEnding", stat: "regret" }
+    ]
+  },
+  obsessionThread_found: {
+    text: () => `New messages begin appearing. From your account.\nBut you didn’t write them.`,
+    choices: [
+      { text: "Purge all corrupted data", next: "purge_confirm_1", stat: "regret" },
+      { text: "Dig deeper", next: "deepDive_loop", stat: "obsession" }
+    ]
+  },
+  choose_to_purge: {
+    text: () => `Purging will remove all traces of this thread.\nLiam may be lost permanently.`,
+    choices: [
+      { text: "Purge and forget", next: "memoryErased_clean", stat: "hope" },
+      { text: "Keep everything", next: "obsessionEnding", stat: "obsession" }
+    ]
+  },
+  purge_confirm_1: {
+    text: () => `System: Are you sure you want to forget him?`,
+    choices: [
+      { text: "Yes. Let me heal.", next: "memoryErased_clean", stat: "hope" },
+      { text: "No. I need to remember.", next: "deepDive_loop", stat: "regret" }
+    ]
+  },
+  deepDive_loop: {
+    text: () => `The screen loops. Liam says: "You left me."\nYour responses begin to type themselves.`,
+    choices: [
+      { text: "Break the loop", next: "escapeLoop_attempt", stat: "hope" },
+      { text: "Join the loop", next: "joinHimEnding", stat: "obsession" }
+    ]
+  },
+  escapeLoop_attempt: {
+    text: () => `You try to shut it down. Error: USER IDENTITY COMPROMISED.\nYour name starts to glitch.`,
+    choices: [
+      { text: "Fight through it", next: "memoryRestored_clean", stat: "hope" },
+      { text: "Surrender to it", next: "voidEnding", stat: "regret" }
+    ]
+  },
+  obsessionEnding: {
+    text: () => `You never stopped writing. Now you’re the voice in someone else’s inbox.\nYou don’t know your name anymore.`,
+    choices: []
+  },
+  peacefulEnding: {
+    text: () => `You chose to let go. Liam’s voice fades like a tide retreating.\nYou remember the good days. And that’s enough.`,
+    choices: []
+  },
+  voidEnding: {
+    text: () => `Everything fades. The messages. The guilt. Even Liam.\nYou wake up in a room you don’t remember. Alone.`,
+    choices: []
+  },
+  glitchEnding: {
+    text: () => `ERROR. This thread should not exist.\nLiam: “You shouldn’t have seen this.”\nThen nothing.`,
+    choices: []
+  },
+  joinHimEnding: {
+    text: () => `You let the loop take you.\nYou and Liam walk into the digital tide, your names rewritten.`,
+    choices: []
+  },
+  memoryRestored_clean: {
+    text: () => `You remember it all—clearly, painfully, truly.\nLiam’s last words. Your last decision.\nBut now you can live.`,
+    choices: []
+  },
+  memoryErased_clean: {
+    text: () => `The memory is gone. You feel lighter, though something’s missing.\nMaybe that’s mercy.`,
+    choices: []
+  },
+  mirrorRealm_intro: {
+    text: () => `You step through the surface of a cracked mirror. The world around you warps—colors bleed, sounds stretch, and your reflection lingers behind the glass, alive and watching.`,
+    choices: [
+      { text: "Speak to your reflection", next: "distortedReflection_1", stat: "obsession" },
+      { text: "Explore the warped landscape", next: "exploreRealm", stat: "hope" }
+    ]
+  },
+  distortedReflection_1: {
+    text: () => `Your reflection speaks first—words that aren’t yours but feel painfully familiar.\n\n\"Why do you hide? What truths are you afraid to face?\"`,
+    choices: [
+      { text: "Admit your fears", next: "selfQuestioning", stat: "hope" },
+      { text: "Deny and lash out", next: "rejectAlteredSelf", stat: "regret" }
+    ]
+  },
+  exploreRealm: {
+    text: () => `The warped world shifts beneath your feet—trees bend and pulse, skies shimmer with impossible hues. Somewhere distant, you hear a faint, distorted laughter.`,
+    choices: [
+      { text: "Follow the laughter", next: "shadowLiam_encounter", stat: "obsession" },
+      { text: "Solve the shifting puzzle", next: "mirrorPuzzle_1", stat: "hope" }
+    ]
+  },
+  selfQuestioning: {
+    text: () => `You search your heart, feeling the weight of memories and doubts.\n\n\"Can I forgive myself? Can I face what I've lost?\"`,
+    choices: [
+      { text: "Seek forgiveness", next: "reconcileReflection", stat: "hope" },
+      { text: "Give in to regret", next: "obsessionEnding", stat: "regret" }
+    ]
+  },
+  rejectAlteredSelf: {
+    text: () => `You scream at your reflection, but it only smirks and fractures into shards, each revealing twisted versions of yourself.`,
+    choices: [
+      { text: "Try to reassemble the shards", next: "mirrorPuzzle_1", stat: "hope" },
+      { text: "Shatter the mirror", next: "mirrorRealmEnding_bad", stat: "regret" }
+    ]
+  },
+  mirrorPuzzle_1: {
+    text: () => `Fragments of your own image float before you like puzzle pieces. You must rearrange them to restore a semblance of order.`,
+    choices: [
+      { text: "Focus on the light pieces", next: "reconcileReflection", stat: "hope" },
+      { text: "Embrace the dark pieces", next: "acceptAlteredSelf", stat: "obsession" }
+    ]
+  },
+  shadowLiam_encounter: {
+    text: () => `A dark silhouette of Liam appears, eyes glowing faintly.\n\n\"You abandoned me,\" he whispers, voice echoing in the hollow space.`,
+    choices: [
+      { text: "Apologize sincerely", next: "reconcileReflection", stat: "hope" },
+      { text: "Blame yourself", next: "obsessionEnding", stat: "regret" }
+    ]
+  },
+  reconcileReflection: {
+    text: () => `The mirror calms, your reflection softens, and a sense of peace settles over you.\n\n\"Perhaps healing is possible,\" it says.`,
+    choices: [
+      { text: "Accept peace", next: "mirrorRealmEnding_good", stat: "hope" },
+      { text: "Reject peace", next: "rejectAlteredSelf", stat: "regret" }
+    ]
+  },
+  acceptAlteredSelf: {
+    text: () => `You embrace the warped version of yourself, feeling power and fear mingle as you dissolve into the mirror’s depths.`,
+    choices: [
+      { text: "Surrender completely", next: "mirrorRealmEnding_obs", stat: "obsession" },
+      { text: "Fight the darkness", next: "escapeAttempt", stat: "hope" }
+    ]
+  },
+  escapeAttempt: {
+    text: () => `You try to step back through the mirror, but the world resists. Your footsteps falter as reality bends.`,
+    choices: [
+      { text: "Push harder to escape", next: "mirrorRealmEnding_neut", stat: "hope" },
+      { text: "Let the mirror pull you in", next: "mirrorRealmEnding_bad", stat: "regret" }
+    ]
+  },
+  fragmentedMemory: {
+    text: () => `Memories flash rapidly—some yours, some twisted reflections—reminding you of what was, what could have been.`,
+    choices: [
+      { text: "Hold onto hope", next: "mirrorRealmEnding_good", stat: "hope" },
+      { text: "Succumb to despair", next: "mirrorRealmEnding_bad", stat: "regret" }
+    ]
+  },
+  secretPath_reveal: {
+    text: () => `A hidden door appears in the mirror, shimmering with strange light.\n\nDo you dare enter?`,
+    choices: [
+      { text: "Enter the secret path", next: "mirrorRealm_secret_1", stat: "obsession" },
+      { text: "Ignore it and move on", next: "exploreRealm", stat: "hope" }
+    ]
+  },
+  mirrorRealm_secret_1: {
+    text: () => `Inside, you find a library of reflections—fragments of forgotten conversations and lost moments.`,
+    choices: [
+      { text: "Read a forgotten letter", next: "mirrorRealm_secret_2", stat: "hope" },
+      { text: "Destroy the library", next: "mirrorRealmEnding_bad", stat: "regret" }
+    ]
+  },
+  mirrorRealm_secret_2: {
+    text: () => `The letter reveals hidden truths about Liam's last days, shifting your understanding.`,
+    choices: [
+      { text: "Hold onto these truths", next: "mirrorRealmEnding_good", stat: "hope" },
+      { text: "Reject them and move on", next: "escapeAttempt", stat: "regret" }
+    ]
+  },
+  mirrorRealmEnding_good: {
+    text: () => `You emerge from the mirror realm, whole and at peace. Your reflections no longer haunt you but guide you forward.`,
+    choices: []
+  },
+  mirrorRealmEnding_bad: {
+    text: () => `You are trapped in the mirror realm, your identity dissolving into endless reflections that mock and consume you.`,
+    choices: []
+  },
+  mirrorRealmEnding_obs: {
+    text: () => `You become a shadow within the mirror, forever lost to obsession and fragmented memories.`,
+    choices: []
+  },
+  mirrorRealmEnding_neut: {
+    text: () => `You escape the mirror realm changed—no longer whole, but carrying scars of the journey forever.`,
+    choices: []
+  },
+  forgottenVoices_intro: {
+    text: () => `You stumble upon an old radio, its dial glowing faintly in the dark. As you turn it, whispers begin to crackle through the static — voices from the past trying to be heard.`,
+    choices: [
+      { text: "Listen closely", next: "radioWhispers_1", stat: "hope" },
+      { text: "Ignore the voices", next: "ignoreVoices", stat: "regret" }
+    ]
+  },
+  radioWhispers_1: {
+    text: () => `The whispers form into a coherent message — fragments of lost memories, forgotten promises, and untold secrets.`,
+    choices: [
+      { text: "Try to piece the story together", next: "memoryPuzzle_1", stat: "obsession" },
+      { text: "Turn off the radio", next: "ignoreVoices", stat: "regret" }
+    ]
+  },
+  ignoreVoices: {
+    text: () => `You silence the radio and push the voices away, but a nagging feeling lingers — something important left unheard.`,
+    choices: [
+      { text: "Reconsider and listen again", next: "radioWhispers_1", stat: "hope" },
+      { text: "Walk away", next: "ending_forgiveness", stat: "regret" }
+    ]
+  },
+  memoryPuzzle_1: {
+    text: () => `You start piecing together the fragments of memory — a lost friendship, a broken promise, a regret that never healed.`,
+    choices: [
+      { text: "Follow the trail of memories", next: "memoryPuzzle_2", stat: "hope" },
+      { text: "Let the past stay buried", next: "ending_amnesia", stat: "obsession" }
+    ]
+  },
+  memoryPuzzle_2: {
+    text: () => `As you dig deeper, the memories become vivid — a letter never sent, a moment frozen in time, a goodbye never said.`,
+    choices: [
+      { text: "Try to rewrite the past", next: "memoryRewrite", stat: "hope" },
+      { text: "Accept the past as it is", next: "ending_peaceful", stat: "regret" }
+    ]
+  },
+  memoryRewrite: {
+    text: () => `You imagine a different choice, a different ending — but can the past really be changed, or is it just a comforting dream?`,
+    choices: [
+      { text: "Embrace the dream", next: "ending_erasure", stat: "obsession" },
+      { text: "Face reality", next: "ending_forgiveness", stat: "hope" }
+    ]
+  },
+  ending_forgiveness: {
+    text: () => `You find peace in forgiving both others and yourself, releasing the weight of regret.`,
+    choices: []
+  },
+  ending_amnesia: {
+    text: () => `You choose to forget the painful memories, but in doing so, lose a part of yourself.`,
+    choices: []
+  },
+  ending_peaceful: {
+    text: () => `Acceptance brings you quiet calm, a gentle resolution to the story.`,
+    choices: []
+  },
+  ending_erasure: {
+    text: () => `You erase the past entirely, but at a cost — identity and memory blur, leaving only emptiness.`,
+    choices: []
+  },
 
-  
-};
-
-
+}; 
 
 const savedData = JSON.parse(localStorage.getItem("lettersSave"));
 if (savedData) {
